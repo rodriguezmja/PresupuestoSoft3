@@ -20,10 +20,10 @@ public class Conn {
 
     public String BASEDATOS = "presupuesto";
     public String SERVIDOR;
-    public String USUARIO = "sa";
+    public String USUARIO = "";
     public String IP = "localhost";
     public String CONTRASENA = "Passw0rd";
-    public String PUERTO = "1433";
+    public String PUERTO = "";
     public Connection con;
 
     public Conn() {
