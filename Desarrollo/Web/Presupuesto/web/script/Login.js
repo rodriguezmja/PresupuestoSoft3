@@ -1,7 +1,6 @@
 var usuarioID = 0;
 
 function  insertarUsuario() {
-
     var nombreCompleto = $("input[name=NombreCompleto]").val();
     var nombreUsuario = $("input[name=NombreUsuario]").val();
     var password = $("input[name=Contrasena]").val();

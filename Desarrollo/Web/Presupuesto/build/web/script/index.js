@@ -1,19 +1,19 @@
-$('.tabs').on('click', 'li a', function(e){
-  e.preventDefault();
-  var $tab = $(this),
-       href = $tab.attr('href');
+$('.tabs').on('click', 'li a', function (e) {
+    e.preventDefault();
+    var $tab = $(this),
+            href = $tab.attr('href');
 
-   $('.active').removeClass('active');
-   $tab.addClass('active');
+    $('.active').removeClass('active');
+    $tab.addClass('active');
 
-   $('.show')
-      .removeClass('show')
-      .addClass('hide')
-      .hide();
-  
+    $('.show')
+            .removeClass('show')
+            .addClass('hide')
+            .hide();
+
     $(href)
-      .removeClass('hide')
-      .addClass('show')
-      .hide()
-      .fadeIn(550);
+            .removeClass('hide')
+            .addClass('show')
+            .hide()
+            .fadeIn(550);
 });

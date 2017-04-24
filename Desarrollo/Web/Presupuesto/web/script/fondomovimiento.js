@@ -1,8 +1,8 @@
 
 //Ancho (en pixeles)
-var sliderwidth ="1200px"
+var sliderwidth = "1200px"
 //Alto
-var sliderheight ="380px"
+var sliderheight = "380px"
 //Velocidad 1-10
 var slidespeed = 1
 //Color de fondo:
@@ -35,8 +35,7 @@ function fillup() {
         cross_slide.innerHTML = cross_slide2.innerHTML = leftrightslide
         actualwidth = document.all ? cross_slide.offsetWidth : document.getElementById("temp").offsetWidth
         cross_slide2.style.left = actualwidth + slideshowgap + "px"
-    }
-    else if (document.layers) {
+    } else if (document.layers) {
         ns_slide = document.ns_slidemenu.document.ns_slidemenu2
         ns_slide2 = document.ns_slidemenu.document.ns_slidemenu3
         ns_slide.document.write(leftrightslide)
@@ -62,8 +61,7 @@ function slideleft() {
         else
             cross_slide2.style.left = parseInt(cross_slide.style.left) + actualwidth + slideshowgap + "px"
 
-    }
-    else if (document.layers) {
+    } else if (document.layers) {
         if (ns_slide.left > (actualwidth * (-1) + 8))
             ns_slide.left -= copyspeed
         else
@@ -86,12 +84,11 @@ if (iedom || document.layers) {
             write('<div id="test2" style="position:absolute;left:0px;top:0px"></div>')
             write('<div id="test3" style="position:absolute;left:-1000px;top:0px"></div>')
             write('</div></div>')
-        }
-        else if (document.layers) {
+        } else if (document.layers) {
             //write('<ilayer width="+sliderwidth+" height="+sliderheight+" name="ns_slidemenu" bgcolor="+slidebgcolor+">')
-           // write('<layer left="0" top="0" " onmouseout="copyspeed=slidespeed" name="ns_slidemenu2"></layer>')
-           // write('<layer left="0" top="0" " onmouseout="copyspeed=slidespeed" name="ns_slidemenu3"></layer>')
-           // write('</ilayer>')
+            // write('<layer left="0" top="0" " onmouseout="copyspeed=slidespeed" name="ns_slidemenu2"></layer>')
+            // write('<layer left="0" top="0" " onmouseout="copyspeed=slidespeed" name="ns_slidemenu3"></layer>')
+            // write('</ilayer>')
         }
         document.write('</td></table>')
     }
