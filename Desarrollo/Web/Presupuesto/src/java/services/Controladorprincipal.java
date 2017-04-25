@@ -53,6 +53,27 @@ public class Controladorprincipal {
         }
         return new SimpleResponse(true, respuesta);
     }
+    
+        @GET
+    @Path("/loggear")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse Login(@QueryParam("cuenta") String cuenta, @QueryParam("password") String password) {
+        SimpleResponse respuesta;
+        Conn con = new Conn();
+        Usuario usuario = new Usuario(con);
+        try {
+            usuario = usuario.loguear(cuenta, password);
+            if (usuario == null) {
+                respuesta = new SimpleResponse(true, "-1");
+            } else {
+                respuesta = new SimpleResponse(true, usuario.getusuarioId() + "," + usuario.getnombreCompleto()+","+usuario.getnombreUsuario());
+            }
+        } catch (SQLException ex) {
+            respuesta = new SimpleResponse(true, "-1");
+        }
+        return respuesta;
+    }
 
 }
 

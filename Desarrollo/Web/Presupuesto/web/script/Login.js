@@ -36,25 +36,25 @@ function  insertarUsuario() {
         nombreUsuario: nombreUsuario,
         password: password,
         email: email}, function (e) {
-        alert(e);
+        alert(e.message);
     });
 }
 function  Ingresar() {
-    var Login = $("input[name=Login]").val();
-    var password = $("input[name=ContrasenaLogin]").val();
-    $.get("api/carrito/loggear", {
+    var Login = $("input[name=UserNameLogin]").val();
+    var password = $("input[name=passLogin]").val();
+    $.get("api/controladorprincipal/loggear", {
         cuenta: Login,
         password: password}, function (response) {
         var e = response.message;
         if (e == "-1") {
             alert("Usuario o Contraseña incorrecto");
         } else {
-            var aux = e.split(",");
-            $("#usuarioLogin").text(aux[0]);
-            usuarioID = aux[1];
-            $("#LogInRegistro").css("display", "none");
-            $("#CerrarSession").css("display", "block");
-            popLogin(0);
+             alert("USUARIO Y CONTRASENA CORRECTOS");
+           
+            localStorage.setItem("Usuario",e);
+            window.location.href="Construccion.html";
+            
+            
         }
     });
 

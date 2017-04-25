@@ -88,7 +88,9 @@ public class Usuario {
     }
 
     public Usuario loguear(String cuenta, String password) throws SQLException {
-        String consulta = "select * from Usuario where nombreUsuario='" + cuenta + "' and password = md5('" + password + "')";
+        Seguridad sha1= new Seguridad();
+        String pass= sha1.SHA1(password);
+        String consulta = "select * from Usuario where nombreUsuario='" + cuenta + "' and password = '" + pass + "'";
         ResultSet rs = con.consultar(consulta);
         List<Usuario> lis = cargar(rs);
         if (lis.size() > 0) {
