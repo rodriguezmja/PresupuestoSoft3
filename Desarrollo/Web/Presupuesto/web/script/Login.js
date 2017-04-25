@@ -49,16 +49,51 @@ function  Ingresar() {
         if (e == "-1") {
             alert("Usuario o Contraseña incorrecto");
         } else {
-             alert("USUARIO Y CONTRASENA CORRECTOS");
+            alert("USUARIO Y CONTRASENA CORRECTOS");
            
-            localStorage.setItem("Usuario",e);
-            window.location.href="Construccion.html";
+            localStorage.setItem("Usuario", e);
+            window.location.href = "Construccion.html";
             
             
         }
     });
+}
+
+$(document).ready(function () {
+    $('#open').click(function () {
+        $('#popup').fadeIn('slow');
+        $('.popup-overlay').fadeIn('slow');
+        $('.popup-overlay').height($(window).height());
+        return false;
+    });
+
+    $('#close').click(function () {
+        $('#popup').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
+        return false;
+    });
+});
+
+function MostrarMensaje() {
+    $('#MensajeErrorEmail').show();
+}
+
+function OcultarMensaje() {
+    $('#MensajeErrorEmail').hide();
+    $('#popup').fadeOut('slow');
+    $('.popup-overlay').fadeOut('slow');
+    return false;
 
 }
 
-
+function EnviarEmail() {
+    if ($('#EmailAddress').val() != "") {
+        alert("Envio Direccion Correctamente");
+        $('#EmailAddress').val() == "";
+        OcultarMensaje();
+    } else
+    {
+        MostrarMensaje();
+    }
+}
 
