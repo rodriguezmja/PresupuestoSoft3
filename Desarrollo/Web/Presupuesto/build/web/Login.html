@@ -11,8 +11,8 @@
         <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>  
 
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
-
-        <script src="script/Login.js" type="text/javascript"></script>
+        <script src="script/jquery.js" type="text/javascript"></script>
+        <script src="script/Login.js" type="text/javascript"></script>        
     </head>
 
     <body>    
@@ -22,64 +22,87 @@
             <div class="card"></div>
             <div class="card">
                 <h1 class="title">Login</h1>
-                
-                    
-                    <div class="input-container">
-                        <input type="text" name="UserNameLogin" id="Username" required="required"/>
-                        <label for="Username">Nombre de Usuario</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" name="passLogin" id="Password" required="required"/>
-                        <label for="Password">Contraseña</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="button-container">
-                        <button onclick="Ingresar()" ><span>Entrar</span></button>
-                    </div>
-                    <div class="footer"><a href="#">Olvidaste tu Contraseña?</a></div>
-                
+
+
+                <div class="input-container">
+                    <input type="text" name="UserNameLogin" id="Username" required="required"/>
+                    <label for="Username">Nombre de Usuario</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="password" name="passLogin" id="Password" required="required"/>
+                    <label for="Password">Contraseña</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="button-container">
+                    <button onclick="Ingresar()" ><span>Entrar</span></button>
+                </div>
+                <div class="footer"><a href="#" id="open">Olvide mi clave!</a></div>
+
             </div>
             <div class="card alt">
                 <div class="toggle"></div>
                 <h1 class="title">Registrarse
                     <div class="close">
-                        
+
                     </div>
                 </h1>
-                
-                    <div class="input-container">
-                        <input type="text" id="FullName" name="NombreCompleto" required="required"/>
-                        <label for="Username">Nombre Completo</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                        <input type="text" id="Username" name="NombreUsuario"  required="required"/>
-                        <label for="Username">Username</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" id="Password" name="Contrasena"  required="required"/>
-                        <label for="Password">Password</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" id="RepeatPassword" name="ConfirmPassword"  required="required"/>
-                        <label for="RepeatPassword">Repeat Password</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="input-container">
-                        <input type="text" id="Email" name="Email"  required="required"/>
-                        <label for="Username">Correo Electronico</label>
-                        <div class="bar"></div>
-                    </div>
-                    <div class="button-container">
-                        <!--<button><span>Guardar</span></button>-->
-                        <button onclick="insertarUsuario()">Guardar</button>
-                    </div>
-                
+
+                <div class="input-container">
+                    <input type="text" id="FullName" name="NombreCompleto" required="required"/>
+                    <label for="Username">Nombre Completo</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="Username" name="NombreUsuario"  required="required"/>
+                    <label for="Username">Username</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="password" id="Password" name="Contrasena"  required="required"/>
+                    <label for="Password">Password</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="password" id="RepeatPassword" name="ConfirmPassword"  required="required"/>
+                    <label for="RepeatPassword">Repeat Password</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="Email" name="Email"  required="required"/>
+                    <label for="Username">Correo Electronico</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="button-container">
+                    <!--<button><span>Guardar</span></button>-->
+                    <button onclick="insertarUsuario()">Guardar</button>
+                </div>
+
             </div>
         </div>
+
+        <div id="popup" style="display: none;">
+            <div class="content-popup">
+                <div>
+                    <h2>Recuperar Contraseña</h2>
+                    <p>Si has olvidado tu nombre de usuario o tu contraseña, puedes solicitar que se te envíe por correo electrónico tu nombre de usuario y restablecer así tu contraseña. Si introduces el correo electrónico que has registrado, se te enviarán las instrucciones para restablecer tu contraseña.</p>
+                    <div id="MensajeErrorEmail" class="alert alert-danger" role="alert" style="display: none">
+                        <label for="ListadeUsuarios">Por favor Ingrese su Correo Electronico!!</label>
+                    </div>
+                    <div class="input-container">
+                        <label for="Username">Direccion de Correo Electronico</label>
+                        <input type="text" id="EmailAddress" name="CorreoElectronico" size="35" required="required"/>
+                        <div class="button-container">
+                            <button onclick="EnviarEmail()" class="btn btn-warning"><span>Enviar</span></button>
+                        </div>
+                        <button id="close" class="close btn-info"><span>Cerrar</span></button>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-overlay"></div>
         <script src="script/jquery-1.12.3.min.js" type="text/javascript"></script>
         <script src="script/index.js" type="text/javascript"></script>
     </body>

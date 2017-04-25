@@ -19,17 +19,20 @@ import javax.mail.internet.MimeMessage;
  * @author rodriguezja
  */
 public class EnvioMail {
-    private static String Username = "";
-    private static String PassWord = "";
+    private static String Username = "estacaequipetrol@gmail.com";
+    private static String PassWord = "S3cretariosEquipetrol";
     private String Mensage = "";
     private String To = "";
     private String Subject = "";
 
-    public EnvioMail(String correoTo) {
+    public EnvioMail(String mensaje, String correoTo, String subject) {
         this.setTo(correoTo);
+        this.setMensage(mensaje);
+        this.setSubject(subject);
+        SendMail();
     }
     
-    public void SendMail() {
+    private void SendMail() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
