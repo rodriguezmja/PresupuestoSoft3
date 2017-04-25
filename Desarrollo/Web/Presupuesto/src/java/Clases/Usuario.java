@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import Seguridad.Seguridad;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -102,7 +103,11 @@ public class Usuario {
     }
 
     public void insertar() throws SQLException {
-        String consulta = "insert into  presupuesto.dbo.Usuario(nombreCompleto, nombreUsuario, password, email, fecha) values('"+ nombreCompleto + "','" + nombreUsuario + "','" + password + "','" + email + "','" + fecha + "')";
+        Seguridad sha1= new Seguridad();
+        String pass= sha1.SHA1(password);
+        
+        
+        String consulta = "insert into  presupuesto.dbo.Usuario(nombreCompleto, nombreUsuario, password, email, fecha) values('"+ nombreCompleto + "','" + nombreUsuario + "','" + pass + "','" + email + "','" + fecha + "')";
 
         con.manipular(consulta);
         
