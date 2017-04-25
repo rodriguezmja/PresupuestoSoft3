@@ -7,6 +7,7 @@ package services;
 
 import Clases.Conn;
 import Clases.Usuario;
+import Seguridad.EnvioMail;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,6 +74,18 @@ public class Controladorprincipal {
             respuesta = new SimpleResponse(true, "-1");
         }
         return respuesta;
+    }
+    
+    //todo esto fue añadido para probar enviar mail, Angel
+     @GET
+    @Path("/enviomail")
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse EnvioMail(@QueryParam("email") String email) {
+       //Conn con = new Conn();
+        new EnvioMail(email);
+        String respuesta = "El E-Mail fue enviado correctamente";
+        return new SimpleResponse(true, respuesta);
     }
 
 }

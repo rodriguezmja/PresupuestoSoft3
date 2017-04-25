@@ -49,6 +49,10 @@ public class Usuario {
         this.fecha = fecha;
     }
 
+    public Usuario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setCon(Conn con) {
         this.con = con;
     }

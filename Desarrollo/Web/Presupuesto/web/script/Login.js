@@ -84,13 +84,30 @@ function OcultarMensaje() {
 }
 
 function EnviarEmail() {
-    if ($('#EmailAddress').val() != "") {
+    var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel
+    
+    if ($('#EmailAddress').val() !== "") {
+        
+         $.get("api/controladorprincipal/enviomail", {
+        email: correoelectronico}, function (e) {
+        alert(e.message);
+    });
         alert("Envio Direccion Correctamente");
-        $('#EmailAddress').val() == "";
+        $('#EmailAddress').val() === "";
         OcultarMensaje();
     } else
     {
         MostrarMensaje();
     }
+   
+    
+//    if ($('#EmailAddress').val() != "") {
+//        alert("Envio Direccion Correctamente");
+//        $('#EmailAddress').val() == "";
+//        OcultarMensaje();
+//    } else
+//    {
+//        MostrarMensaje();
+//    }
 }
 

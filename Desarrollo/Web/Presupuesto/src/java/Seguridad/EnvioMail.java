@@ -14,24 +14,30 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 //import javax.swing.JOptionPane;
+
 /**
  *
  * @author rodriguezja
  */
 public class EnvioMail {
+
     private static String Username = "estacaequipetrol@gmail.com";
     private static String PassWord = "S3cretariosEquipetrol";
-    private String Mensage = "";
+    private String Mensage = "Se ha solicitado la recuperacion de su contraseña, por favor haga clic en el siguiente link: http://www.google.com";
     private String To = "";
-    private String Subject = "";
+    private String Subject = "Recuperacion Password";
 
-    public EnvioMail(String mensaje, String correoTo, String subject) {
+    public EnvioMail(String correoTo) {
         this.setTo(correoTo);
-        this.setMensage(mensaje);
-        this.setSubject(subject);
+//        this.setMensage(mensaje);
+//        this.setSubject(subject);
         SendMail();
     }
-    
+
+    public EnvioMail() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private void SendMail() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -41,10 +47,10 @@ public class EnvioMail {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(Username, PassWord);
-                    }
-                });
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Username, PassWord);
+            }
+        });
 
         try {
 
@@ -63,7 +69,7 @@ public class EnvioMail {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static String getUsername() {
         return Username;
     }
@@ -103,5 +109,5 @@ public class EnvioMail {
     public void setSubject(String Subject) {
         this.Subject = Subject;
     }
-    
+
 }
