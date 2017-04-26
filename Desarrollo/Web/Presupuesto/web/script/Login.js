@@ -1,5 +1,21 @@
 var usuarioID = 0;
 
+
+$(document).ready(function () {
+    $('#open').click(function () {
+        $('#popup').fadeIn('slow');
+        $('.popup-overlay').fadeIn('slow');
+        $('.popup-overlay').height($(window).height());
+        return false;
+    });
+
+    $('#close').click(function () {
+        $('#popup').fadeOut('slow');
+        $('.popup-overlay').fadeOut('slow');
+        return false;
+    });
+});
+
 function  insertarUsuario() {
     var nombreCompleto = $("input[name=NombreCompleto]").val();
     var nombreUsuario = $("input[name=NombreUsuario]").val();
@@ -55,21 +71,22 @@ function  Ingresar() {
         }
     });
 }
-
-$(document).ready(function () {
-    $('#open').click(function () {
-        $('#popup').fadeIn('slow');
-        $('.popup-overlay').fadeIn('slow');
-        $('.popup-overlay').height($(window).height());
-        return false;
+function EnviarEmail() {
+    var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel      
+    $.get("api/controladorprincipal/EnvioCorreo", {
+        email: correoelectronico}, function (response) {
+        var e = response.message;
+        if (e == "-1") {
+            alert("El correo no existe");
+            MostrarMensaje();
+        } else {
+            alert("Se envio el correo exitosamente");
+            localStorage.setItem("Usuario", e);
+            OcultarMensaje();
+            // window.location.href = "Construccion.html";
+        }
     });
-
-    $('#close').click(function () {
-        $('#popup').fadeOut('slow');
-        $('.popup-overlay').fadeOut('slow');
-        return false;
-    });
-});
+}
 
 function MostrarMensaje() {
     $('#MensajeErrorEmail').show();
@@ -83,31 +100,4 @@ function OcultarMensaje() {
 
 }
 
-function EnviarEmail() {
-    var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel
-    
-    if ($('#EmailAddress').val() !== "") {
-        
-         $.get("api/controladorprincipal/enviomail", {
-        email: correoelectronico}, function (e) {
-        alert(e.message);
-    });
-        alert("Envio Direccion Correctamente");
-        $('#EmailAddress').val() === "";
-        OcultarMensaje();
-    } else
-    {
-        MostrarMensaje();
-    }
-   
-    
-//    if ($('#EmailAddress').val() != "") {
-//        alert("Envio Direccion Correctamente");
-//        $('#EmailAddress').val() == "";
-//        OcultarMensaje();
-//    } else
-//    {
-//        MostrarMensaje();
-//    }
-}
 

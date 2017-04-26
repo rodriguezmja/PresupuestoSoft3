@@ -33,19 +33,19 @@ import javax.ws.rs.core.Response;
 @Path("/controladorprincipal")
 public class Controladorprincipal {
 
- @GET
+    @GET
     @Path("/nuevoUsuario")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
     public SimpleResponse obtenerProductos(@QueryParam("nombreCompleto") String nombreCompleto, @QueryParam("nombreUsuario") String nombreUsuario, @QueryParam("password") String password, @QueryParam("email") String email) {
         Conn con = new Conn();
         String respuesta = "El usuario se inserto correctamente";
-        Calendar calendar= new GregorianCalendar();
-            Date today=calendar.getTime();
-            SimpleDateFormat formato=new SimpleDateFormat("dd/MM/yyyy");
-            String fechaActual=formato.format(today);
+        Calendar calendar = new GregorianCalendar();
+        Date today = calendar.getTime();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = formato.format(today);
         try {
-            Usuario usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email,fechaActual);
+            Usuario usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email, fechaActual);
             usuario.setCon(con);
             usuario.insertar();
 
@@ -54,8 +54,8 @@ public class Controladorprincipal {
         }
         return new SimpleResponse(true, respuesta);
     }
-    
-        @GET
+
+    @GET
     @Path("/loggear")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,25 +68,35 @@ public class Controladorprincipal {
             if (usuario == null) {
                 respuesta = new SimpleResponse(true, "-1");
             } else {
-                respuesta = new SimpleResponse(true, usuario.getusuarioId() + "," + usuario.getnombreCompleto()+","+usuario.getnombreUsuario());
+                respuesta = new SimpleResponse(true, usuario.getusuarioId() + "," + usuario.getnombreCompleto() + "," + usuario.getnombreUsuario());
             }
         } catch (SQLException ex) {
             respuesta = new SimpleResponse(true, "-1");
         }
         return respuesta;
     }
-    
+
     //todo esto fue añadido para probar enviar mail, Angel
-     @GET
-    @Path("/enviomail")
+    @GET
+    @Path("/EnvioCorreo")
     @Produces(MediaType.APPLICATION_JSON)
-    //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse EnvioMail(@QueryParam("email") String email) {
-       //Conn con = new Conn();
-        new EnvioMail(email);
-        String respuesta = "El E-Mail fue enviado correctamente";
-        return new SimpleResponse(true, respuesta);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse EnvioCorreo(@QueryParam("email") String email) {
+        SimpleResponse respuesta;
+        Conn con = new Conn();
+        Usuario usuario = new Usuario(con);
+        try {
+            usuario = usuario.buscarxCorreo(email);
+            if (usuario == null) {
+                respuesta = new SimpleResponse(true, "-1");
+            } else {
+                respuesta = new SimpleResponse(true, usuario.getEmail());
+                new EnvioMail(email);
+            }
+        } catch (SQLException ex) {
+            respuesta = new SimpleResponse(true, "-1");
+        }
+        return respuesta;    
     }
 
 }
-

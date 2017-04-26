@@ -102,6 +102,15 @@ public class Usuario {
         }
         return null;
     }
+    public Usuario buscarxCorreo(String email) throws SQLException {
+        String consulta = "select * from Usuario where email='" + email + "'";
+        ResultSet rs = con.consultar(consulta);
+        List<Usuario> lis = cargar(rs);
+        if (lis.size() > 0) {
+            return lis.get(0);
+        }
+        return null;
+    }
 
     public void modificar() throws SQLException {
         String consulta = "update Usuario set usuarioId = " + user_id + ", nombreCompleto = '" + nombreCompleto + "', nombreUsuario = '" + nombreUsuario + "', password = '" + password + "', email = '" + email + "' where usuarioId=" + user_id;

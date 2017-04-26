@@ -21,8 +21,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class EnvioMail {
 
-    private static String Username = "estacaequipetrol@gmail.com";
-    private static String PassWord = "S3cretariosEquipetrol";
+    private static String Username = "presupuestosoft3@gmail.com";
+    private static String PassWord = "presupuesto123";
     private String Mensage = "Se ha solicitado la recuperacion de su contraseña, por favor haga clic en el siguiente link: http://www.google.com";
     private String To = "";
     private String Subject = "Recuperacion Password";
