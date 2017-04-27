@@ -5,7 +5,12 @@
  */
 package Seguridad;
 
+import Clases.Conn;
+import Clases.Usuario;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -23,7 +28,7 @@ public class EnvioMail {
 
     private static String Username = "presupuestosoft3@gmail.com";
     private static String PassWord = "presupuesto123";
-    private String Mensage = "Se ha solicitado la recuperacion de su contraseña, por favor haga clic en el siguiente link: http://www.google.com";
+    private String Mensage = "Su nueva contraseña es:";
     private String To = "";
     private String Subject = "Recuperacion Password";
 
@@ -59,7 +64,16 @@ public class EnvioMail {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(To));
             message.setSubject(Subject);
-            message.setText(Mensage);
+            String pass=PasswordGenerator.getPinNumber();
+            Conn con=new Conn();
+            Usuario user=new Usuario(con);
+            String email=getTo();
+            try {
+                user.cambiopassword(pass,email);
+            } catch (SQLException ex) {
+                Logger.getLogger(EnvioMail.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            message.setText(Mensage+pass);
 
             Transport.send(message);
             System.out.println("su mensaje ha sido enviado");

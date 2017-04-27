@@ -119,14 +119,16 @@ public class Usuario {
 
     public void insertar() throws SQLException {
         Seguridad sha1= new Seguridad();
-        String pass= sha1.SHA1(password);
-        
-        
+        String pass= sha1.SHA1(password);        
         String consulta = "insert into  presupuesto.dbo.Usuario(nombreCompleto, nombreUsuario, password, email, fecha) values('"+ nombreCompleto + "','" + nombreUsuario + "','" + pass + "','" + email + "','" + fecha + "')";
-
-        con.manipular(consulta);
-        
+        con.manipular(consulta);     
     }
+     public void cambiopassword(String pass,String email) throws SQLException{
+         Seguridad sha1= new Seguridad();
+        String contraseña= sha1.SHA1(pass);  
+        String consulta = "update Usuario set password = '" + contraseña + "' where email='" + email+"'";
+        con.manipular(consulta);
+     }
 
     public int getusuarioId() {
         return user_id;
@@ -175,4 +177,6 @@ public class Usuario {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+   
 }

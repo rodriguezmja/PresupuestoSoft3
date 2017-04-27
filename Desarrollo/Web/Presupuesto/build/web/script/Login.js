@@ -47,14 +47,28 @@ function  insertarUsuario() {
         alert("Las contraseñas no son iguales");
         return;
     }
+    if  (!validarEmail(email)){
+        alert("Debe colocar un e-mail valido");
+        return;
+    }
     $.get("api/controladorprincipal/nuevoUsuario", {
         nombreCompleto: nombreCompleto,
         nombreUsuario: nombreUsuario,
         password: password,
-        email: email}, function (e) {
-        alert(e.message);
+        email: email}, function (response) {
+        alert(response.message);
+        window.location.href = "Login.html";
     });
 }
+
+function validarEmail(valor) {
+  if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)){
+   return true;
+  } else {
+   return false;
+  }
+}
+
 function  Ingresar() {
     var Login = $("input[name=UserNameLogin]").val();
     var password = $("input[name=passLogin]").val();

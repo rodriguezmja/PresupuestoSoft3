@@ -13,17 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -39,7 +34,7 @@ public class Controladorprincipal {
     //@Consumes(MediaType.APPLICATION_JSON)
     public SimpleResponse obtenerProductos(@QueryParam("nombreCompleto") String nombreCompleto, @QueryParam("nombreUsuario") String nombreUsuario, @QueryParam("password") String password, @QueryParam("email") String email) {
         Conn con = new Conn();
-        String respuesta = "El usuario se inserto correctamente";
+        SimpleResponse respuesta;
         Calendar calendar = new GregorianCalendar();
         Date today = calendar.getTime();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -48,11 +43,11 @@ public class Controladorprincipal {
             Usuario usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email, fechaActual);
             usuario.setCon(con);
             usuario.insertar();
-
+            respuesta = new SimpleResponse(true, "El usuario se inserto correctamente");
         } catch (SQLException ex) {
-            respuesta = "[no se inserto correctamente el usuario]";
+            respuesta = new SimpleResponse(true, "no se inserto correctamente el usuario");
         }
-        return (new SimpleResponse(true, respuesta));
+        return respuesta;
     }
 
     @GET
@@ -96,7 +91,7 @@ public class Controladorprincipal {
         } catch (SQLException ex) {
             respuesta = new SimpleResponse(true, "-1");
         }
-        return respuesta;    
+        return respuesta;
     }
 
 }

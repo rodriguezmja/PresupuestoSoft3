@@ -55,8 +55,9 @@ function  insertarUsuario() {
         nombreCompleto: nombreCompleto,
         nombreUsuario: nombreUsuario,
         password: password,
-        email: email}, function (e) {
-        alert(e.message);
+        email: email}, function (response) {
+        alert(response.message);
+        window.location.href = "Login.html";
     });
 }
 
