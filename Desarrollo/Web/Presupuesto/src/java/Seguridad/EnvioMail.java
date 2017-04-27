@@ -64,7 +64,7 @@ public class EnvioMail {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(To));
             message.setSubject(Subject);
-            String pass=PasswordGenerator.getPinNumber();
+            String pass=PasswordGenerator.getPassword();
             Conn con=new Conn();
             Usuario user=new Usuario(con);
             String email=getTo();

@@ -25,7 +25,7 @@ public class PasswordGenerator {
 	}
  
 	public static String getPassword() {
-		return getPassword(8);
+		return getPassword(6);
 	}
  
 	public static String getPassword(int length) {
