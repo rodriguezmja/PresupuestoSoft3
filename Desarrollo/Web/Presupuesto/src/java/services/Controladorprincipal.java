@@ -52,7 +52,7 @@ public class Controladorprincipal {
         } catch (SQLException ex) {
             respuesta = "[no se inserto correctamente el usuario]";
         }
-        return new SimpleResponse(true, respuesta);
+        return (new SimpleResponse(true, respuesta));
     }
 
     @GET
