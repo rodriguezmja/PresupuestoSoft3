@@ -17,12 +17,13 @@ and open the template in the editor.
         <!--  Paper Dashboard core CSS    -->
         <link href="style/paper-dashboard.css" rel="stylesheet" type="text/css"/>
         <!--  CSS for Demo Purpose, don't include it in your project     -->
-        <link href="assets/css/demo.css" rel="stylesheet" />
-
+        <link href="style/demo.css" rel="stylesheet" type="text/css"/>
+        <link href="style/fileinput.css" rel="stylesheet" type="text/css"/>
         <!--  Fonts and icons     -->
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
         <link href="style/themify-icons.css" rel="stylesheet" type="text/css"/>
+
         <!--   Core JS Files   -->
         <script src="script/jquery-1.12.3.min.js" type="text/javascript"></script>
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
@@ -37,7 +38,8 @@ and open the template in the editor.
         <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
         <script src="script/paper-dashboard.js" type="text/javascript"></script>
         <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-        <script src="assets/js/demo.js"></script>
+        <script src="script/demo.js" type="text/javascript"></script>
+        <script src="script/fileinput.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="wrapper">
@@ -45,24 +47,24 @@ and open the template in the editor.
 
                 <div class="sidebar-wrapper">
                     <div class="logo">
-                        <a href="http://www.creative-tim.com" class="simple-text">
-                            Creative Tim
+                        <a href="#" class="simple-text">
+                            Soft. Presupuesto
                         </a>
                     </div>
 
                     <ul class="nav">
-                        <li>
+                        <li class="active">
+                            <a href="user.html">
+                                <i class="ti-user"></i>
+                                <p>Mi Perfil</p>
+                            </a>
+                        </li>
+                        <!--<li>
                             <a href="dashboard.html">
                                 <i class="ti-panel"></i>
                                 <p>Dashboard</p>
                             </a>
-                        </li>
-                        <li class="active">
-                            <a href="user.html">
-                                <i class="ti-user"></i>
-                                <p>User Profile</p>
-                            </a>
-                        </li>
+                        </li>                        
                         <li>
                             <a href="table.html">
                                 <i class="ti-view-list-alt"></i>
@@ -92,13 +94,7 @@ and open the template in the editor.
                                 <i class="ti-bell"></i>
                                 <p>Notifications</p>
                             </a>
-                        </li>
-                        <li class="active-pro">
-                            <a href="upgrade.html">
-                                <i class="ti-export"></i>
-                                <p>Upgrade to PRO</p>
-                            </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -113,35 +109,20 @@ and open the template in the editor.
                                 <span class="icon-bar bar2"></span>
                                 <span class="icon-bar bar3"></span>
                             </button>
-                            <a class="navbar-brand" href="#">User Profile</a>
+                            <a class="navbar-brand" href="#">Perfil de Usuario</a>
                         </div>
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="ti-panel"></i>
-                                        <p>Stats</p>
+                                        <p>Estados</p>
                                     </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="ti-bell"></i>
-                                        <p class="notification">5</p>
-                                        <p>Notifications</p>
-                                        <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>
+                                </li>                                
                                 <li>
                                     <a href="#">
                                         <i class="ti-settings"></i>
-                                        <p>Settings</p>
+                                        <p>Configuración</p>
                                     </a>
                                 </li>
                             </ul>
@@ -150,46 +131,44 @@ and open the template in the editor.
                     </div>
                 </nav>
 
-
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="card card-user">
                                     <div class="image">
-                                        <img src="img/background.jpg" alt="..."/>
+                                        <img src="img/background.jpg" alt=""/>
                                     </div>
                                     <div class="content">
                                         <div class="author">
-                                            <img class="avatar border-white" src="img/faces/face-2.jpg" alt="..."/>
-                                            <h4 class="title">Chet Faker<br />
-                                                <a href="#"><small>@chetfaker</small></a>
+                                            <h4 class="border-white title control-label">Subir foto<br />
+                                                <input id="uploader" name="input4[]" type="file" multiple class="file-loading">
                                             </h4>
                                         </div>
                                         <p class="description text-center">
-                                            "I like the way you work it <br>
-                                            No diggity <br>
-                                            I wanna bag it up"
+                                            "Gastos de las actividades <br>
+                                            diarias realizadas <br>
+                                            en el transcurso del mes."
                                         </p>
                                     </div>
                                     <hr>
                                     <div class="text-center">
                                         <div class="row">
                                             <div class="col-md-3 col-md-offset-1">
-                                                <h5>12<br /><small>Files</small></h5>
+                                                <h5>5<br /><small>Tareas</small></h5>
                                             </div>
                                             <div class="col-md-4">
-                                                <h5>2GB<br /><small>Used</small></h5>
+                                                <h5>40%<br /><small>Hecho</small></h5>
                                             </div>
                                             <div class="col-md-3">
-                                                <h5>24,6$<br /><small>Spent</small></h5>
+                                                <h5>300Bs<br /><small>Presupuesto</small></h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title">Team Members</h4>
+                                        <h4 class="title">Equipo Enlazado</h4>
                                     </div>
                                     <div class="content">
                                         <ul class="list-unstyled team-members">
@@ -197,13 +176,13 @@ and open the template in the editor.
                                                 <div class="row">
                                                     <div class="col-xs-3">
                                                         <div class="avatar">
-                                                            <img src="img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
+                                                            <img src="img/faces/esposa.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        DJ Khaled
+                                                        Esposa
                                                         <br />
-                                                        <span class="text-muted"><small>Offline</small></span>
+                                                        <span class="text-muted"><small>Disponible</small></span>
                                                     </div>
 
                                                     <div class="col-xs-3 text-right">
@@ -215,13 +194,13 @@ and open the template in the editor.
                                                 <div class="row">
                                                     <div class="col-xs-3">
                                                         <div class="avatar">
-                                                            <img src="img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
+                                                            <img src="img/faces/hijos.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        Creative Tim
+                                                        Hijos
                                                         <br />
-                                                        <span class="text-success"><small>Available</small></span>
+                                                        <span class="text-success"><small>No Disponible</small></span>
                                                     </div>
 
                                                     <div class="col-xs-3 text-right">
@@ -233,13 +212,13 @@ and open the template in the editor.
                                                 <div class="row">
                                                     <div class="col-xs-3">
                                                         <div class="avatar">
-                                                            <img src="img/faces/face-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
+                                                            <img src="img/faces/salud.PNG" alt="Circle Image" class="img-circle img-no-padding img-responsive"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        Flume
+                                                        Salud
                                                         <br />
-                                                        <span class="text-danger"><small>Busy</small></span>
+                                                        <span class="text-danger"><small>Privado</small></span>
                                                     </div>
 
                                                     <div class="col-xs-3 text-right">
@@ -254,26 +233,21 @@ and open the template in the editor.
                             <div class="col-lg-8 col-md-7">
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title">Edit Profile</h4>
+                                        <h4 class="title">Editar Perfil</h4>
                                     </div>
                                     <div class="content">
                                         <form>
                                             <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label>Company</label>
-                                                        <input type="text" class="form-control border-input" disabled placeholder="Company" value="Creative Code Inc.">
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label>Username</label>
-                                                        <input type="text" class="form-control border-input" placeholder="Username" value="michael23">
+                                                        <label>Nombre Usuario</label>
+                                                        <input type="text" class="form-control border-input" placeholder="Alias">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Email address</label>
+                                                        <label for="exampleInputEmail1">Correo Electrónico</label>
                                                         <input type="email" class="form-control border-input" placeholder="Email">
                                                     </div>
                                                 </div>
@@ -282,14 +256,14 @@ and open the template in the editor.
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>First Name</label>
-                                                        <input type="text" class="form-control border-input" placeholder="Company" value="Chet">
+                                                        <label>Nombre</label>
+                                                        <input type="text" class="form-control border-input" placeholder="Nombre Completo">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Last Name</label>
-                                                        <input type="text" class="form-control border-input" placeholder="Last Name" value="Faker">
+                                                        <label>Apellido</label>
+                                                        <input type="text" class="form-control border-input" placeholder="Apellido Completo">
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,48 +271,14 @@ and open the template in the editor.
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Address</label>
-                                                        <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+                                                        <label>Dirección</label>
+                                                        <input type="text" class="form-control border-input" placeholder="Dirección">
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>City</label>
-                                                        <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Country</label>
-                                                        <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Postal Code</label>
-                                                        <input type="number" class="form-control border-input" placeholder="ZIP Code">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>About Me</label>
-                                                        <textarea rows="5" class="form-control border-input" placeholder="Here can be your description">
-                                                            Oh so, your weak rhyme
-                                                            You doubt I'll bother, reading into it
-                                                            I'll probably won't, left to my own devices
-                                                            But that's the difference in our opinions.
-                                                        </textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                                                <button type="submit" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
                                             </div>
                                             <div class="clearfix"></div>
                                         </form>
@@ -350,37 +290,21 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-
-
+                
                 <footer class="footer">
                     <div class="container-fluid">
-                        <nav class="pull-left">
-                            <ul>
-
-                                <li>
-                                    <a href="http://www.creative-tim.com">
-                                        Creative Tim
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="http://blog.creative-tim.com">
-                                        Blog
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="http://www.creative-tim.com/license">
-                                        Licenses
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
                         <div class="copyright pull-right">
-                            &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
+                            &copy; <script>document.write(new Date().getFullYear())</script>, Desarrollado por el equipo de SoftIII
                         </div>
                     </div>
                 </footer>
 
             </div>
         </div>
+        <script>
+            $(document).on('ready', function () {
+                $("#uploader").fileinput({showCaption: false});
+            });
+        </script>
     </body>
 </html>
