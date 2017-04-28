@@ -86,20 +86,25 @@ function  Ingresar() {
     });
 }
 function EnviarEmail() {
-    var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel      
-    $.get("api/controladorprincipal/EnvioCorreo", {
-        email: correoelectronico}, function (response) {
-        var e = response.message;
-        if (e == "-1") {
-            alert("El correo no existe");
-            MostrarMensaje();
-        } else {
-            alert("Se envio el correo exitosamente");
-            localStorage.setItem("Usuario", e);
-            OcultarMensaje();
-            // window.location.href = "Construccion.html";
-        }
-    });
+    if ($('#EmailAddress').val() != '') {
+        var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel      
+        $.get("api/controladorprincipal/EnvioCorreo", {
+            email: correoelectronico}, function (response) {
+            var e = response.message;
+            if (e == "-1") {
+                alert("El correo no existe");
+                MostrarMensaje();
+            } else {
+                alert("Se envio el correo exitosamente");
+                localStorage.setItem("Usuario", e);
+                OcultarMensaje();
+                // window.location.href = "Construccion.html";
+            }
+        });
+    } else
+    {
+        MostrarMensaje();
+    }
 }
 
 function MostrarMensaje() {
