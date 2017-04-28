@@ -81,7 +81,7 @@ function  Ingresar() {
         } else {
             alert("USUARIO Y CONTRASENA CORRECTOS");
             localStorage.setItem("Usuario", e);
-            window.location.href = "Construccion.html";
+            window.location.href = "index.html";
         }
     });
 }
