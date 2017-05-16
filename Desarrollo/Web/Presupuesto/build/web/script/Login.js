@@ -47,7 +47,7 @@ function  insertarUsuario() {
         alert("Las contraseñas no son iguales");
         return;
     }
-    if  (!validarEmail(email)){
+    if (!validarEmail(email)) {
         alert("Debe colocar un e-mail valido");
         return;
     }
@@ -62,11 +62,11 @@ function  insertarUsuario() {
 }
 
 function validarEmail(valor) {
-  if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)){
-   return true;
-  } else {
-   return false;
-  }
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function  Ingresar() {
@@ -81,25 +81,30 @@ function  Ingresar() {
         } else {
             alert("USUARIO Y CONTRASENA CORRECTOS");
             localStorage.setItem("Usuario", e);
-            window.location.href = "Construccion.html";
+            window.location.href = "index.html";
         }
     });
 }
 function EnviarEmail() {
-    var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel      
-    $.get("api/controladorprincipal/EnvioCorreo", {
-        email: correoelectronico}, function (response) {
-        var e = response.message;
-        if (e == "-1") {
-            alert("El correo no existe");
-            MostrarMensaje();
-        } else {
-            alert("Se envio el correo exitosamente");
-            localStorage.setItem("Usuario", e);
-            OcultarMensaje();
-            // window.location.href = "Construccion.html";
-        }
-    });
+    if ($('#EmailAddress').val() != '') {
+        var correoelectronico = $("input[name=CorreoElectronico]").val(); //Añadido Angel      
+        $.get("api/controladorprincipal/EnvioCorreo", {
+            email: correoelectronico}, function (response) {
+            var e = response.message;
+            if (e == "-1") {
+                alert("El correo no existe");
+                MostrarMensaje();
+            } else {
+                alert("Se envio el correo exitosamente");
+                localStorage.setItem("Usuario", e);
+                OcultarMensaje();
+                // window.location.href = "Construccion.html";
+            }
+        });
+    } else
+    {
+        MostrarMensaje();
+    }
 }
 
 function MostrarMensaje() {
@@ -113,5 +118,4 @@ function OcultarMensaje() {
     return false;
 
 }
-
 
