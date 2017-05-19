@@ -32,7 +32,7 @@ public class Controladorprincipal {
     @Path("/nuevoUsuario")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerProductos(@QueryParam("nombreCompleto") String nombreCompleto, @QueryParam("nombreUsuario") String nombreUsuario, @QueryParam("password") String password, @QueryParam("email") String email) {
+    public SimpleResponse registrarUsuario(@QueryParam("nombreCompleto") String nombreCompleto, @QueryParam("nombreUsuario") String nombreUsuario, @QueryParam("password") String password, @QueryParam("email") String email) {
         Conn con = new Conn();
         SimpleResponse respuesta;
         Calendar calendar = new GregorianCalendar();
@@ -40,10 +40,22 @@ public class Controladorprincipal {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fechaActual = formato.format(today);
         try {
-            Usuario usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email, fechaActual);
-            usuario.setCon(con);
-            usuario.insertar();
-            respuesta = new SimpleResponse(true, "El usuario se inserto correctamente");
+            Usuario usuario = new Usuario(con);
+            usuario = usuario.buscarxUsername(nombreUsuario);
+            if (usuario != null) {
+                respuesta = new SimpleResponse(true, "El nombre de Usuario se encuentra en uso");
+            } else {
+                usuario = new Usuario(con);
+                usuario = usuario.buscarxCorreo(email);
+                if (usuario != null) {
+                    respuesta = new SimpleResponse(true, "El correo ya se encuentra registrado");
+                } else {
+                    usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email, fechaActual);
+                    usuario.setCon(con);
+                    usuario.insertar();
+                    respuesta = new SimpleResponse(true, "El usuario se inserto correctamente");
+                }
+            }
         } catch (SQLException ex) {
             respuesta = new SimpleResponse(true, "no se inserto correctamente el usuario");
         }

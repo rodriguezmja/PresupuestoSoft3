@@ -18,6 +18,7 @@ $(document).ready(function () {
 
 function  insertarUsuario() {
     var nombreCompleto = $("input[name=NombreCompleto]").val();
+    
     var nombreUsuario = $("input[name=NombreUsuario]").val();
     var password = $("input[name=Contrasena]").val();
     var confirmarPass = $("input[name=ConfirmPassword]").val();

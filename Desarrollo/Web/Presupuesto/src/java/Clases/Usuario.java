@@ -10,14 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
-import javax.ws.rs.core.MediaType;
 
 /**
  * REST Web Service
@@ -111,13 +104,22 @@ public class Usuario {
         }
         return null;
     }
+    public Usuario buscarxUsername(String nombreUsuario) throws SQLException {
+        String consulta = "select * from Usuario where nombreusuario='"+ nombreUsuario +"'"; 
+        ResultSet rs = con.consultar(consulta);
+        List<Usuario> lis = cargar(rs);
+        if (lis.size() > 0) {
+            return lis.get(0);
+        }
+        return null;
+    }
 
     public void modificar() throws SQLException {
         String consulta = "update Usuario set usuarioId = " + user_id + ", nombreCompleto = '" + nombreCompleto + "', nombreUsuario = '" + nombreUsuario + "', password = '" + password + "', email = '" + email + "' where usuarioId=" + user_id;
         con.manipular(consulta);
     }
 
-    public void insertar() throws SQLException {
+    public void insertar() throws SQLException {       
         Seguridad sha1= new Seguridad();
         String pass= sha1.SHA1(password);        
         String consulta = "insert into  presupuesto.dbo.Usuario(nombreCompleto, nombreUsuario, password, email, fecha) values('"+ nombreCompleto + "','" + nombreUsuario + "','" + pass + "','" + email + "','" + fecha + "')";
