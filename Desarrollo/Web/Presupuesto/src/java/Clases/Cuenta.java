@@ -9,15 +9,94 @@ package Clases;
  *
  * @author rodriguezja
  */
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ws.rs.Path;
+
+
 public class Cuenta {
     
     private int cuenta_id;
     private String nombre;
     private double monto;
-    private Usuario usuario;
+    private int usuario_id;
 
+    private Conn con;
+
+    public Cuenta(Conn con) {
+        this.con = con;
+    }
+    
     public Cuenta() {
     }
+
+    public Cuenta(int cuenta_id, String nombre, double monto, int usuario_id) {
+        this.cuenta_id = cuenta_id;
+        this.nombre = nombre;
+        this.monto = monto;
+        this.usuario_id = usuario_id;
+    }
+    
+     public void setCon(Conn con) {
+        this.con = con;
+    }
+
+    public List<Cuenta> cargar(ResultSet rs) {
+        List<Cuenta> lista = new ArrayList();
+        try {
+            while (rs.next()) {
+                Cuenta aux = new Cuenta(con);
+                aux.setCuenta_id(rs.getInt("cuenta_id"));
+                aux.setNombre(rs.getString("nombre"));
+                aux.setMonto(rs.getDouble("monto"));
+                aux.setUsuario(rs.getInt("usuario"));
+               
+                lista.add(aux);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al cargar los datos");
+        }
+        return lista;
+    }
+
+    public List<Cuenta> todo() throws SQLException {
+        String consulta = "select * from Cuenta";
+        return cargar(con.consultar(consulta));
+    }
+
+    public Cuenta buscarXid(int id) throws SQLException {
+        String consulta = "select * from Cuenta where cuenta_id=" + id;
+        ResultSet rs = con.consultar(consulta);
+        List<Cuenta> lis = cargar(rs);
+        if (lis.size() > 0) {
+            return lis.get(0);
+        }
+        return null;
+    }
+
+    public Cuenta buscarxNombre(String nombreCuenta) throws SQLException {
+        String consulta = "select * from Cuenta where nombre='"+ nombreCuenta +"'"; 
+        ResultSet rs = con.consultar(consulta);
+        List<Cuenta> lis = cargar(rs);
+        if (lis.size() > 0) {
+            return lis.get(0);
+        }
+        return null;
+    }
+
+    public void modificar() throws SQLException {
+        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', monto = '" + monto + "', usuario_id = '" + usuario_id + "' where cuenta_id=" + cuenta_id;
+        con.manipular(consulta);
+    }
+
+    public void insertar() throws SQLException {            
+        String consulta = "insert into  presupuesto.dbo.Cuenta(nombre, monto, usuario_id) values('"+ nombre + "','" + monto + "','" + usuario_id + "')";
+        con.manipular(consulta);     
+    }
+    
 
     public int getCuenta_id() {
         return cuenta_id;
@@ -43,12 +122,12 @@ public class Cuenta {
         this.monto = monto;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getUsuario() {
+        return usuario_id;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuario(int usuario_id) {
+        this.usuario_id = usuario_id;
     }
     
     

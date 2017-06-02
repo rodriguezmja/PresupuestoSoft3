@@ -17,7 +17,7 @@ import javax.ws.rs.Path;
  *
  * @author rpinto
  */
-@Path("usuario")
+
 public class Usuario {
 
     private int user_id;
