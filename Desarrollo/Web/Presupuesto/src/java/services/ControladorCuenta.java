@@ -6,6 +6,7 @@
 package services;
 
 import Clases.Conn;
+import Clases.Cuenta;
 import Clases.Usuario;
 import Seguridad.EnvioMail;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -25,14 +27,14 @@ import javax.ws.rs.core.MediaType;
  *
  * @author rpinto
  */
-@Path("/controladorprincipal")
-public class Controladorprincipal {
+@Path("/controladorcuenta")
+public class ControladorCuenta {
 
     @GET
-    @Path("/nuevoUsuario")
+    @Path("/crearcuenta")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse registrarUsuario(@QueryParam("nombreCompleto") String nombreCompleto, @QueryParam("nombreUsuario") String nombreUsuario, @QueryParam("password") String password, @QueryParam("email") String email) {
+    public SimpleResponse crearCuenta(@QueryParam("nombrecuenta") String nombrecuenta, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
         Calendar calendar = new GregorianCalendar();
@@ -40,70 +42,45 @@ public class Controladorprincipal {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fechaActual = formato.format(today);
         try {
-            Usuario usuario = new Usuario(con);
-            usuario = usuario.buscarxUsername(nombreUsuario);
-            if (usuario != null) {
-                respuesta = new SimpleResponse(true, "El nombre de Usuario se encuentra en uso");
-            } else {
-                usuario = new Usuario(con);
-                usuario = usuario.buscarxCorreo(email);
-                if (usuario != null) {
-                    respuesta = new SimpleResponse(true, "El correo ya se encuentra registrado");
-                } else {
-                    usuario = new Usuario(0, nombreCompleto, nombreUsuario, password, email, fechaActual);
-                    usuario.setCon(con);
-                    usuario.insertar();
-                    respuesta = new SimpleResponse(true, "El usuario se inserto correctamente");
-                }
-            }
+            Cuenta cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
+            cuenta.setCon(con);
+            cuenta.insertar();
+            respuesta = new SimpleResponse(true, "Lacuenta se creo correctamente");
+
         } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "no se inserto correctamente el usuario");
+            respuesta = new SimpleResponse(true, "no se creo correctamente la cuenta");
         }
         return respuesta;
     }
-
-    @GET
-    @Path("/loggear")
+    
+     @GET
+    @Path("/obtenercuenta")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse Login(@QueryParam("cuenta") String cuenta, @QueryParam("password") String password) {
-        SimpleResponse respuesta;
+    public SimpleResponse obtenerTipoCliente() {
         Conn con = new Conn();
-        Usuario usuario = new Usuario(con);
+        String respuesta = "";
         try {
-            usuario = usuario.loguear(cuenta, password);
-            if (usuario == null) {
-                respuesta = new SimpleResponse(true, "-1");
-            } else {
-                respuesta = new SimpleResponse(true, usuario.getusuarioId() + "," + usuario.getnombreCompleto() + "," + usuario.getnombreUsuario());
+            Cuenta infoCuenta = new Cuenta();
+            infoCuenta.setCon(con);
+            List<Cuenta> listainfoCuentas = infoCuenta.todo();
+            respuesta = "[";
+            for (int i = 0; i < listainfoCuentas.size(); i++) {
+                respuesta += "{\"id\":\"" + listainfoCuentas.get(i).getCuenta_id()
+                        + "\",\"nombre\":\"" + listainfoCuentas.get(i).getNombre()
+                        + "\",\"monto\":\"" + listainfoCuentas.get(i).getMonto()
+                        + "\",\"usuario_id\":\"" + listainfoCuentas.get(i).getUsuario()
+                        +  "\"},";
             }
-        } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "-1");
-        }
-        return respuesta;
-    }
+            if (respuesta.length() > 2) {
+                respuesta = respuesta.substring(0, respuesta.length() - 1);
+            }
+            respuesta += "]";
 
-    //todo esto fue añadido para probar enviar mail, Angel
-    @GET
-    @Path("/EnvioCorreo")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse EnvioCorreo(@QueryParam("email") String email) {
-        SimpleResponse respuesta;
-        Conn con = new Conn();
-        Usuario usuario = new Usuario(con);
-        try {
-            usuario = usuario.buscarxCorreo(email);
-            if (usuario == null) {
-                respuesta = new SimpleResponse(true, "-1");
-            } else {
-                respuesta = new SimpleResponse(true, usuario.getEmail());
-                new EnvioMail(email);
-            }
-        } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "-1");
+        } catch (Exception ex) {
+            respuesta = "[]";
         }
-        return respuesta;
+        return new SimpleResponse(true, respuesta);
     }
 
 }

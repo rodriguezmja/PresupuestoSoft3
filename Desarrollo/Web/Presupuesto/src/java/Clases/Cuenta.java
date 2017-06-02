@@ -22,7 +22,7 @@ public class Cuenta {
     private int cuenta_id;
     private String nombre;
     private double monto;
-    private int usuario_id;
+    private int user_id;
 
     private Conn con;
 
@@ -31,13 +31,17 @@ public class Cuenta {
     }
     
     public Cuenta() {
-    }
-
-    public Cuenta(int cuenta_id, String nombre, double monto, int usuario_id) {
         this.cuenta_id = cuenta_id;
         this.nombre = nombre;
         this.monto = monto;
-        this.usuario_id = usuario_id;
+        this.user_id = user_id;
+    }
+
+    public Cuenta(int cuenta_id, String nombre, double monto, int user_id) {
+        this.cuenta_id = cuenta_id;
+        this.nombre = nombre;
+        this.monto = monto;
+        this.user_id = user_id;
     }
     
      public void setCon(Conn con) {
@@ -52,7 +56,7 @@ public class Cuenta {
                 aux.setCuenta_id(rs.getInt("cuenta_id"));
                 aux.setNombre(rs.getString("nombre"));
                 aux.setMonto(rs.getDouble("monto"));
-                aux.setUsuario(rs.getInt("usuario"));
+                aux.setUsuario(rs.getInt("user_id"));
                
                 lista.add(aux);
             }
@@ -88,12 +92,12 @@ public class Cuenta {
     }
 
     public void modificar() throws SQLException {
-        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', monto = '" + monto + "', usuario_id = '" + usuario_id + "' where cuenta_id=" + cuenta_id;
+        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', monto = '" + monto + "', user_id = '" + user_id + "' where cuenta_id=" + cuenta_id;
         con.manipular(consulta);
     }
 
     public void insertar() throws SQLException {            
-        String consulta = "insert into  presupuesto.dbo.Cuenta(nombre, monto, usuario_id) values('"+ nombre + "','" + monto + "','" + usuario_id + "')";
+        String consulta = "insert into  presupuesto.dbo.Cuenta(nombre, monto, user_id) values('"+ nombre + "','" + monto + "','" + user_id + "')";
         con.manipular(consulta);     
     }
     
@@ -123,11 +127,11 @@ public class Cuenta {
     }
 
     public int getUsuario() {
-        return usuario_id;
+        return user_id;
     }
 
-    public void setUsuario(int usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setUsuario(int user_id) {
+        this.user_id = user_id;
     }
     
     

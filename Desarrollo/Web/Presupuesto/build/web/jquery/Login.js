@@ -82,7 +82,7 @@ function  Ingresar() {
         } else {
             alert("USUARIO Y CONTRASENA CORRECTOS");
             localStorage.setItem("Usuario", e);
-            window.location.href = "index.html";
+            window.location.href = "cuenta.html";
         }
     });
 }
