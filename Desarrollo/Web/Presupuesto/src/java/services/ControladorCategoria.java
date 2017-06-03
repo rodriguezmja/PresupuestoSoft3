@@ -28,7 +28,7 @@ public class ControladorCategoria {
     @Path("/crearcategoria")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse crearCuenta(@QueryParam("nombrecategoria") String nombrecategoria, @QueryParam("descripcion") String descripcion, @QueryParam("usuario_id") int usuario_id) {
+    public SimpleResponse crearCategoria(@QueryParam("nombrecategoria") String nombrecategoria, @QueryParam("descripcion") String descripcion, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
 //        Calendar calendar = new GregorianCalendar();
@@ -62,8 +62,8 @@ public class ControladorCategoria {
             for (int i = 0; i < listainfoCategorias.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoCategorias.get(i).getCategoria_id()
                         + "\",\"nombre\":\"" + listainfoCategorias.get(i).getNombre()
-                        + "\",\"monto\":\"" + listainfoCategorias.get(i).getDescripcion()
-                        + "\",\"usuario_id\":\"" + listainfoCategorias.get(i).getUsuario()
+                        + "\",\"descripcion\":\"" + listainfoCategorias.get(i).getDescripcion()
+                        + "\",\"user_id\":\"" + listainfoCategorias.get(i).getUsuario()
                         +  "\"},";
             }
             if (respuesta.length() > 2) {

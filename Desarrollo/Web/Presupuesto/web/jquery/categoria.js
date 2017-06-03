@@ -21,18 +21,20 @@ function  crearCategoria() {
 function  obtenerCategoria() {
     $.get("api/controladorcategoria/obtenercategoria", function (response) {
         listaCategoria = $.parseJSON(response.message);
-        var html = "<td>1</td>";
-        var html = "<td>Universidad</td>";
-        var html = "<td>Gastos de la universidad</td>";
+        var html ="<tr>";
+        var  html = "<td class='1'></td>";
+        var   html = "<td class='2'></td>";
+        var   html = "<td class='3'></td>";
+        var  html ="</tr>";
         
 
         for (var i = 0; i < listaCategoria.length; i++) {
-            
-            html = "<td>" + listaCategoria[i].categoria_id + "</td>";
-            html = "<td>" + listaCategoria[i].nombre + "</td>";
-            html = "<td>" + listaCategoria[i].descripcion + "</td>";
-            
+            html +="<tr>";
+            html += "<td id='1'>" + listaCategoria[i].id + "</td>";
+            html += "<td id='2'>" + listaCategoria[i].nombre + "</td>";
+            html += "<td id='3'>" + listaCategoria[i].descripcion + "</td>";
+            html +="</tr>";
         }
-        $("#filacategoria").html(html);
+        $("#filacat").html(html);
     });
 }

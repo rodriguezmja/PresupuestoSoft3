@@ -18,7 +18,7 @@ public class Categoria {
     private int categoria_id;
     private String nombre;
     private String descripcion;
-    private int usuario_id;
+    private int user_id;
     
     private Conn con;
 
@@ -29,7 +29,7 @@ public class Categoria {
         this.categoria_id = categoria_id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.usuario_id = usuario_id;
+        this.user_id = usuario_id;
     }
     
      
@@ -52,7 +52,7 @@ public class Categoria {
                 aux.setCategoria_id(rs.getInt("categoria_id"));
                 aux.setNombre(rs.getString("nombre"));
                 aux.setDescripcion(rs.getString("descripcion"));
-                aux.setUsuario(rs.getInt("usuario_id"));
+                aux.setUsuario(rs.getInt("user_id"));
                
                 lista.add(aux);
             }
@@ -88,12 +88,12 @@ public class Categoria {
     }
 
     public void modificar() throws SQLException {
-        String consulta = "update Categoria set categoria_id = " + categoria_id + ", nombre = '" + nombre + "', descripcion = '" + descripcion + "', usuario_id = '" + usuario_id + "' where categoria_id=" + categoria_id;
+        String consulta = "update Categoria set categoria_id = " + categoria_id + ", nombre = '" + nombre + "', descripcion = '" + descripcion + "', user_id = '" + user_id + "' where categoria_id=" + categoria_id;
         con.manipular(consulta);
     }
 
     public void insertar() throws SQLException {            
-        String consulta = "insert into  presupuesto.dbo.Categoria(nombre, descripcion, usuario_id) values('"+ nombre + "','" + descripcion + "','" + usuario_id + "')";
+        String consulta = "insert into  presupuesto.dbo.Categoria(nombre, descripcion, user_id) values('"+ nombre + "','" + descripcion + "','" + user_id + "')";
         con.manipular(consulta);     
     }
 
@@ -122,11 +122,11 @@ public class Categoria {
     }
 
     public int getUsuario() {
-        return usuario_id;
+        return user_id;
     }
 
     public void setUsuario(int usuario_id) {
-        this.usuario_id = usuario_id;
+        this.user_id = usuario_id;
     }
     
     
