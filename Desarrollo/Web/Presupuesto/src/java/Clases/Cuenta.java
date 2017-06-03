@@ -71,14 +71,14 @@ public class Cuenta {
         return cargar(con.consultar(consulta));
     }
 
-    public Cuenta buscarXid(int id) throws SQLException {
-        String consulta = "select * from Cuenta where cuenta_id=" + id;
+    public List<Cuenta> buscarXid(int id) throws SQLException {
+        String consulta = "select * from Cuenta where user_id=" + id;
         ResultSet rs = con.consultar(consulta);
         List<Cuenta> lis = cargar(rs);
-        if (lis.size() > 0) {
-            return lis.get(0);
-        }
-        return null;
+//        if (lis.size() > 0) {
+//            return lis.get(0);
+//        }
+        return lis;
     }
 
     public Cuenta buscarxNombre(String nombreCuenta) throws SQLException {

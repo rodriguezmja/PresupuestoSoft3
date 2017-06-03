@@ -19,7 +19,10 @@ function  crearCuenta() {
 
 
 function  obtenerCuenta() {
-    $.get("api/controladorcuenta/obtenercuenta", function (response) {
+    
+    var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    $.get("api/controladorcuenta/obtenercuenta", {      
+        usuario_id: UsuarioId}, function (response) {
         listaCuenta = $.parseJSON(response.message);
         var html = "<div class='col-lg-3 col-md-6 col-sm-6'>";
         var html = "<div class='card card-stats'>";

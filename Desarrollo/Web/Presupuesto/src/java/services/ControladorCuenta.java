@@ -37,10 +37,10 @@ public class ControladorCuenta {
     public SimpleResponse crearCuenta(@QueryParam("nombrecuenta") String nombrecuenta, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
-        Calendar calendar = new GregorianCalendar();
-        Date today = calendar.getTime();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaActual = formato.format(today);
+//        Calendar calendar = new GregorianCalendar();
+//        Date today = calendar.getTime();
+//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//        String fechaActual = formato.format(today);
         try {
             Cuenta cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
             cuenta.setCon(con);
@@ -57,13 +57,13 @@ public class ControladorCuenta {
     @Path("/obtenercuenta")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerTipoCliente() {
+    public SimpleResponse obtenerTipoCliente( @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         String respuesta = "";
         try {
             Cuenta infoCuenta = new Cuenta();
             infoCuenta.setCon(con);
-            List<Cuenta> listainfoCuentas = infoCuenta.todo();
+            List<Cuenta> listainfoCuentas = infoCuenta.buscarXid(usuario_id);
             respuesta = "[";
             for (int i = 0; i < listainfoCuentas.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoCuentas.get(i).getCuenta_id()
