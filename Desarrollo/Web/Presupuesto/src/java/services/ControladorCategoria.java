@@ -51,13 +51,13 @@ public class ControladorCategoria {
     @Path("/obtenercategoria")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerTipoCliente() {
+    public SimpleResponse obtenerTipoCliente(@QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         String respuesta = "";
         try {
             Categoria infoCategoria = new Categoria();
             infoCategoria.setCon(con);
-            List<Categoria> listainfoCategorias = infoCategoria.todo();
+            List<Categoria> listainfoCategorias = infoCategoria.buscarXid(usuario_id);
             respuesta = "[";
             for (int i = 0; i < listainfoCategorias.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoCategorias.get(i).getCategoria_id()

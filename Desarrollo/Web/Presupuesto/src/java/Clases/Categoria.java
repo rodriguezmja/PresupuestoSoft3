@@ -67,14 +67,14 @@ public class Categoria {
         return cargar(con.consultar(consulta));
     }
 
-    public Categoria buscarXid(int id) throws SQLException {
-        String consulta = "select * from Categoria where categoria_id=" + id;
+    public List<Categoria> buscarXid(int id) throws SQLException {
+        String consulta = "select * from Categoria where user_id=" + id;
         ResultSet rs = con.consultar(consulta);
         List<Categoria> lis = cargar(rs);
-        if (lis.size() > 0) {
-            return lis.get(0);
-        }
-        return null;
+//        if (lis.size() > 0) {
+//            return lis.get(0);
+//        }
+        return lis;
     }
 
     public Categoria buscarxNombre(String nombreCategoria) throws SQLException {
