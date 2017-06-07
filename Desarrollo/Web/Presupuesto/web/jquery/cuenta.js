@@ -18,8 +18,7 @@ function  crearCuenta() {
 }
 
 
-function  obtenerCuenta() {
-    
+function  obtenerCuenta() {    
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
     $.get("api/controladorcuenta/obtenercuenta", {      
         usuario_id: UsuarioId}, function (response) {
