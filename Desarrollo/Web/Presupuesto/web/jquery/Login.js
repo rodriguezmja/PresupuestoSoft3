@@ -1,6 +1,4 @@
 var usuarioID = 0;
-
-
 $(document).ready(function () {
     $('#open').click(function () {
         $('#popup').fadeIn('slow');
