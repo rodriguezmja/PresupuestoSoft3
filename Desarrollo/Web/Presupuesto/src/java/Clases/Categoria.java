@@ -87,8 +87,12 @@ public class Categoria {
         return null;
     }
 
-    public void modificar() throws SQLException {
-        String consulta = "update Categoria set categoria_id = " + categoria_id + ", nombre = '" + nombre + "', descripcion = '" + descripcion + "', user_id = '" + user_id + "' where categoria_id=" + categoria_id;
+    public void modificar(int id) throws SQLException {
+        String consulta = "update Categoria set nombre = '" + nombre + "', descripcion = '" + descripcion + "', user_id = '" + user_id + "' where categoria_id=" + id;
+        con.manipular(consulta);
+    }
+    public void eliminar(int id) throws SQLException {
+        String consulta = "delete from categoria where categoria_id=" + id;
         con.manipular(consulta);
     }
 
