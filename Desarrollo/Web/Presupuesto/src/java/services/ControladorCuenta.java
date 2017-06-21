@@ -37,27 +37,28 @@ public class ControladorCuenta {
     public SimpleResponse crearCuenta(@QueryParam("nombrecuenta") String nombrecuenta, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
-//        Calendar calendar = new GregorianCalendar();
-//        Date today = calendar.getTime();
-//        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-//        String fechaActual = formato.format(today);
         try {
-            Cuenta cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
-            cuenta.setCon(con);
-            cuenta.insertar();
-            respuesta = new SimpleResponse(true, "Lacuenta se creo correctamente");
-
+            Cuenta cuenta = new Cuenta(con);
+            cuenta = cuenta.buscarxNombre(nombrecuenta);
+            if (cuenta != null) {
+                respuesta = new SimpleResponse(true, "El nombre de la cuenta ya existe");
+            } else {
+                cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
+                cuenta.setCon(con);
+                cuenta.insertar();
+                respuesta = new SimpleResponse(true, "Lacuenta se creo correctamente");
+            }
         } catch (SQLException ex) {
             respuesta = new SimpleResponse(true, "no se creo correctamente la cuenta");
         }
         return respuesta;
     }
-    
-     @GET
+
+    @GET
     @Path("/obtenercuenta")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerTipoCliente( @QueryParam("usuario_id") int usuario_id) {
+    public SimpleResponse obtenerTipoCliente(@QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         String respuesta = "";
         try {
@@ -70,7 +71,7 @@ public class ControladorCuenta {
                         + "\",\"nombre\":\"" + listainfoCuentas.get(i).getNombre()
                         + "\",\"monto\":\"" + listainfoCuentas.get(i).getMonto()
                         + "\",\"usuario_id\":\"" + listainfoCuentas.get(i).getUsuario()
-                        +  "\"},";
+                        + "\"},";
             }
             if (respuesta.length() > 2) {
                 respuesta = respuesta.substring(0, respuesta.length() - 1);
