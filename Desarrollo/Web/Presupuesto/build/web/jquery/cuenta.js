@@ -66,14 +66,14 @@ function  obtenerCuenta() {
             html += "</div>";
             html += "<div class='card-footer'>";
             html += "<div class='stats'>";
-            html += "<div class='button-container'>"                           
-            html += "<button id='btnEditarCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>"
-            html += "<i class='material-icons'>edit</i>"
-            html += "<div class='ripple-container'></div></button>"
-            html += "<button id='btnAnadirMontoCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>"
-            html += "<i class='material-icons'>add_circle_outline</i>"
-            html += "<div class='ripple-container'></div></button>"
-            html += "</div>"
+            html += "<div class='button-container'>";                           
+            html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>";
+            html += "<i class='material-icons'>edit</i>";
+            html += "<div class='ripple-container'></div></button>";
+            html += "<button id='btnAnadirMontoCuenta' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>";
+            html += "<i class='material-icons'>add_circle_outline</i>";
+            html += "<div class='ripple-container'></div></button>";
+            html += "</div>";
             html += "</div>";
             html += "</div>";
             html += "</div>";
@@ -84,7 +84,7 @@ function  obtenerCuenta() {
 }
 
 function seleccionarCuenta(id, elemento) {
-    var nombre = $(elemento).parent().parent().parent().parent().find("p:nomcuenta").html();
+    var nombre = $(elemento).parent().parent().parent().find("p:eq(1)").html();
    // var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
     $("#btnCuenta").text("Modificar Cuenta");
     idcuenta = id;
