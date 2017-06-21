@@ -9,10 +9,7 @@ and open the template in the editor.
         <title>Proyecto Presupuesto Soft3</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="script/jquery.js" type="text/javascript"></script>
-        <script src="jquery/Principal.js" type="text/javascript"></script>
-        <script src="jquery/cuenta.js" type="text/javascript"></script>
-        <script src="jquery/categoria.js" type="text/javascript"></script>
+
 
         <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
         <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
@@ -216,14 +213,36 @@ and open the template in the editor.
                                         </div>
                                         <div class="card-footer">
                                             <div class="stats">
-                                                <i class="material-icons">date_range</i> Last 24 Hours
+
+                                                <div class="button-container">                           
+                                                    <button id="btnEditarCuenta" onclick="" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip">
+                                                        <i class="material-icons">edit</i>
+                                                        <div class="ripple-container"></div></button>
+                                                    <button id="btnAnadirMontoCuenta" onclick="" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip" data-toggle="collapse" data-target="#demo">
+                                                        <i class="material-icons">edit</i>
+                                                        <div class="ripple-container"></div></button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                       
+                        <div id="demo" class="collapse">
+                            <div class="row">
+                                <div class="col-sm-5 form-group">
+                                    <label class="control-label" for="MontoNuevo">Añadir Nuevo monto</label>
+                                    <input class="form-control" type="number" id="montoNuevo" name="MontoNuevo" step="0.01" required autofocus />
+                                    <label class="control-label" for="DescripcionMontoNuevo">Por Concepto:</label>
+                                    <input class="form-control" type="text" id="descripcionMontoNuevo" name="DescripcionMontoNuevo" required autofocus />
+                                    <button id="nuevoMonto" class="btn btn-warning" text="Guardar">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                         <div class="card-header" data-background-color="orange">
                             <h2 class="title">Crear Categoria</h2>
                             <p class="category">Cree una categoria</p>
@@ -335,6 +354,10 @@ and open the template in the editor.
         </div>
     </body>
     <!--   Core JS Files   -->
+    <script src="script/jquery.js" type="text/javascript"></script>
+    <script src="jquery/Principal.js" type="text/javascript"></script>
+    <script src="jquery/cuenta.js" type="text/javascript"></script>
+    <script src="jquery/categoria.js" type="text/javascript"></script>
     <script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/js/material.min.js" type="text/javascript"></script>
