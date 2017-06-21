@@ -34,7 +34,7 @@ public class ControladorCuenta {
     @Path("/crearcuenta")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse crearCuenta(@QueryParam("nombrecuenta") String nombrecuenta, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id) {
+    public SimpleResponse crearCuenta(@QueryParam("idcuenta") int idcuenta, @QueryParam("nombrecuenta") String nombrecuenta, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
         try {
@@ -45,8 +45,12 @@ public class ControladorCuenta {
             } else {
                 cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
                 cuenta.setCon(con);
+            if (idcuenta == 0) {
                 cuenta.insertar();
                 respuesta = new SimpleResponse(true, "Lacuenta se creo correctamente");
+            } else {
+                cuenta.modificar(idcuenta);
+                respuesta = new SimpleResponse(true, "La Categoria se modifico correctamente");
             }
         } catch (SQLException ex) {
             respuesta = new SimpleResponse(true, "no se creo correctamente la cuenta");
@@ -58,7 +62,7 @@ public class ControladorCuenta {
     @Path("/obtenercuenta")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerTipoCliente(@QueryParam("usuario_id") int usuario_id) {
+    public SimpleResponse obtenerTipoCliente( @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         String respuesta = "";
         try {

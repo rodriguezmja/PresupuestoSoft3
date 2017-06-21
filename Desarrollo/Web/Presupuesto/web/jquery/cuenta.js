@@ -1,3 +1,5 @@
+var idcuenta = 0;
+
 $(document).ready(function () {
     obtenerCuenta();
 });
@@ -7,6 +9,7 @@ function  crearCuenta() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
 
     $.get("api/controladorcuenta/crearcuenta", {
+        idcuenta: idcuenta,
         nombrecuenta: NombreCuenta,
         monto: Monto,
         usuario_id: UsuarioId},
@@ -30,13 +33,20 @@ function  obtenerCuenta() {
         var html = "</div>";
         var html = "<div class='card-content'>";
         var html = "<div id='InformacionCuenta'>";
-        var html = "<p class='category'>Revenue</p>";
-        var html = "<h3 class='title'>$34,245</h3>";
+        var html = "<p class='category' id='nomcuenta'>Revenue</p>";
+        var html = "<h3 class='title' id='monto'>$34,245</h3>";
         var html = "</div>";
         var html = "</div>";
         var html = "<div class='card-footer'>";
-        var html = "<div class='stats'>";
-        var html = "<i class='material-icons'>date_range</i> Last 24 Hours'>";
+        var html = "<div class='stats'>";           
+        var html = "<div class='button-container'>"                           
+        var html = "<button id='btnEditarCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip'>"
+        var html = "<i class='material-icons'>edit</i>"
+        var html = "<div class='ripple-container'></div></button>"
+        var html = "<button id='btnAnadirMontoCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>"
+        var html = "<i class='material-icons'>add_circle_outline</i>"
+        var html = "<div class='ripple-container'></div></button>"
+        var html = "</div>"
         var html = "</div>";
         var html = "</div>";
         var html = "</div>";
@@ -50,13 +60,20 @@ function  obtenerCuenta() {
             html += "</div>";
             html += "<div class='card-content'>";
             html += "<div id='InformacionCuenta'>";
-            html += "<p class='category'>" + listaCuenta[i].nombre + "</p>";
-            html += "<h3 class='title'>" + listaCuenta[i].monto + "</h3>";
+            html += "<p class='category' id='nomcuenta'>" + listaCuenta[i].nombre + "</p>";
+            html += "<h3 class='title' id='monto'>" + listaCuenta[i].monto + "</h3>";
             html += "</div>";
             html += "</div>";
             html += "<div class='card-footer'>";
             html += "<div class='stats'>";
-            html += "<i class='material-icons'>date_range</i> Last 24 Hours'>";
+            html += "<div class='button-container'>"                           
+            html += "<button id='btnEditarCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>"
+            html += "<i class='material-icons'>edit</i>"
+            html += "<div class='ripple-container'></div></button>"
+            html += "<button id='btnAnadirMontoCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>"
+            html += "<i class='material-icons'>add_circle_outline</i>"
+            html += "<div class='ripple-container'></div></button>"
+            html += "</div>"
             html += "</div>";
             html += "</div>";
             html += "</div>";
@@ -64,4 +81,14 @@ function  obtenerCuenta() {
         }
         $("#mostrarCuentas").html(html);
     });
+}
+
+function seleccionarCuenta(id, elemento) {
+    var nombre = $(elemento).parent().parent().parent().parent().find("p:nomcuenta").html();
+   // var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
+    $("#btnCuenta").text("Modificar Cuenta");
+    idcuenta = id;
+    $("input[name=NombreCuenta]").val(nombre);
+    //$("input[name=Descripcion]").val(descripcion);
+    
 }

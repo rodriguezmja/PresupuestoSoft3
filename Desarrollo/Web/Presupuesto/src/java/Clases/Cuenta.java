@@ -91,7 +91,7 @@ public class Cuenta {
         return null;
     }
 
-    public void modificar() throws SQLException {
+    public void modificar(int idcuenta) throws SQLException {
         String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', monto = '" + monto + "', user_id = '" + user_id + "' where cuenta_id=" + cuenta_id;
         con.manipular(consulta);
     }

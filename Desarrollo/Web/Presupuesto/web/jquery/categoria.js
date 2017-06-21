@@ -84,5 +84,5 @@ function seleccionarCategoria(id, elemento) {
     idcategoria = id;
     $("input[name=NombreCategoria]").val(nombre);
     $("input[name=Descripcion]").val(descripcion);
-
+    
 }
