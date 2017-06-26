@@ -7,14 +7,13 @@ package Clases;
 
 /**
  *
- * @author rodriguezja
+ * @author rpinto
  */
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.Path;
 
 
 public class Cuenta {
@@ -92,7 +91,12 @@ public class Cuenta {
     }
 
     public void modificar(int idcuenta) throws SQLException {
-        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', monto = '" + monto + "', user_id = '" + user_id + "' where cuenta_id=" + cuenta_id;
+        String consulta = "update Cuenta set nombre = '" + nombre + "', monto = '" + monto + "', user_id = '" + user_id + "' where cuenta_id=" + idcuenta;
+        con.manipular(consulta);
+    }
+    
+    public void modificarName(int idcuenta) throws SQLException {
+        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', user_id = '" + user_id + "' where cuenta_id=" + cuenta_id;
         con.manipular(consulta);
     }
 
@@ -101,6 +105,10 @@ public class Cuenta {
         con.manipular(consulta);     
     }
     
+    public void eliminar(int id) throws SQLException {
+        String consulta = "delete from cuenta where cuenta_id=" + id;
+        con.manipular(consulta);
+    }
 
     public int getCuenta_id() {
         return cuenta_id;

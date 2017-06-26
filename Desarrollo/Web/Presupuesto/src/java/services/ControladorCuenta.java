@@ -5,6 +5,7 @@
  */
 package services;
 
+import Clases.Categoria;
 import Clases.Conn;
 import Clases.Cuenta;
 import Clases.Usuario;
@@ -47,10 +48,10 @@ public class ControladorCuenta {
                 cuenta.setCon(con);
                 if (idcuenta == 0) {
                     cuenta.insertar();
-                    respuesta = new SimpleResponse(true, "Lacuenta se creo correctamente");
+                    respuesta = new SimpleResponse(true, "La Cuenta se creo correctamente");
                 } else {
                     cuenta.modificar(idcuenta);
-                    respuesta = new SimpleResponse(true, "La Categoria se modifico correctamente");
+                    respuesta = new SimpleResponse(true, "La Cuenta se modifico correctamente");
                 }
             }
         } catch (SQLException ex) {
@@ -87,6 +88,25 @@ public class ControladorCuenta {
             respuesta = "[]";
         }
         return new SimpleResponse(true, respuesta);
+    }
+    
+    @GET
+    @Path("/eliminarcuenta")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse eliminarCuenta(@QueryParam("cuenta_id") int cuenta_id) {
+        Conn con = new Conn();
+        SimpleResponse respuesta;
+        try {
+            Cuenta cuenta = new Cuenta();
+            cuenta.setCon(con);
+            cuenta.eliminar(cuenta_id);
+            respuesta = new SimpleResponse(true, "La Cuenta se elimino correctamente");
+
+        } catch (SQLException ex) {
+            respuesta = new SimpleResponse(true, "no se elimino correctamente la cuenta");
+        }
+        return respuesta;
     }
 
 }

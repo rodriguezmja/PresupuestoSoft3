@@ -17,13 +17,12 @@ function  crearCuenta() {
                 alert(response.message);
                 obtenerCuenta();
             });
-            
+
 }
 
-
-function  obtenerCuenta() {    
+function  obtenerCuenta() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
-    $.get("api/controladorcuenta/obtenercuenta", {      
+    $.get("api/controladorcuenta/obtenercuenta", {
         usuario_id: UsuarioId}, function (response) {
         listaCuenta = $.parseJSON(response.message);
         var html = "<div class='col-lg-3 col-md-6 col-sm-6'>";
@@ -38,8 +37,8 @@ function  obtenerCuenta() {
         var html = "</div>";
         var html = "</div>";
         var html = "<div class='card-footer'>";
-        var html = "<div class='stats'>";           
-        var html = "<div class='button-container'>"                           
+        var html = "<div class='stats'>";
+        var html = "<div class='button-container'>"
         var html = "<button id='btnEditarCuenta' onclick='' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip'>"
         var html = "<i class='material-icons'>edit</i>"
         var html = "<div class='ripple-container'></div></button>"
@@ -60,16 +59,20 @@ function  obtenerCuenta() {
             html += "</div>";
             html += "<div class='card-content'>";
             html += "<div id='InformacionCuenta'>";
-            html += "<p class='category' id='nomcuenta'>" + listaCuenta[i].nombre + "</p>";
-            html += "<h3 class='title' id='monto'>" + listaCuenta[i].monto + "</h3>";
+            html += "<p class='category' id='nomcuenta" + listaCuenta[i].id + "' name='nomcuenta'>" + listaCuenta[i].nombre + "</p>";
+            html += "<h3 id='montocuenta" + listaCuenta[i].id + "' class='title' id='monto'>" + listaCuenta[i].monto + "</h3>";
             html += "</div>";
             html += "</div>";
             html += "<div class='card-footer'>";
             html += "<div class='stats'>";
-            html += "<div class='button-container'>";                           
+            html += "<div class='button-container'>";
             html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>";
-            html += "<i class='material-icons'>edit</i>";
+            html += "<i class='material-icons'>edit</i>";           
             html += "<div class='ripple-container'></div></button>";
+            html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCuenta(" + listaCuenta[i].id + ",this)'>";
+            html += "<i class='material-icons'>close</i>";
+            html += "</button>";
+             html += "<div class='ripple-container'></div></button>";
             html += "<button id='btnAnadirMontoCuenta' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>";
             html += "<i class='material-icons'>add_circle_outline</i>";
             html += "<div class='ripple-container'></div></button>";
@@ -83,12 +86,28 @@ function  obtenerCuenta() {
     });
 }
 
+function limpiarCuenta() {
+    idcuenta = 0;
+    $("input[name=NombreCuenta]").val("");
+    $("input[name=Monto]").val("");
+    $("#btnCuenta").text("Crear Cuenta");
+}
+
+function eliminarCuenta(id, elemento) {
+    $.get("api/controladorcuenta/eliminarcuenta", {
+        cuenta_id: id}, function (response) {
+        alert(response.message);
+        $(elemento).parent().parent().remove();
+    });
+    obtenerCuenta();
+}
+
 function seleccionarCuenta(id, elemento) {
-    var nombre = $(elemento).parent().parent().parent().find("p:eq(1)").html();
-   // var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
+    var nomcuenta = $("#nomcuenta"+id).text();
+    var montocuenta = $("#montocuenta"+id).text();
     $("#btnCuenta").text("Modificar Cuenta");
     idcuenta = id;
-    $("input[name=NombreCuenta]").val(nombre);
-    //$("input[name=Descripcion]").val(descripcion);
-    
+    $("input[name=NombreCuenta]").val(nomcuenta);
+    $("input[name=Monto]").val(montocuenta);
+
 }
