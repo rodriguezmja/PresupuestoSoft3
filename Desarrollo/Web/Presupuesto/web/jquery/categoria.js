@@ -21,11 +21,11 @@ function  crearCategoria() {
 
 }
 
-function limpiarCategoria(){
-     idcategoria = 0;
-                $("input[name=NombreCategoria]").val("");
-                $("input[name=Descripcion]").val("");
-                $("#btnCategoria").text("Crear Categoria");
+function limpiarCategoria() {
+    idcategoria = 0;
+    $("input[name=NombreCategoria]").val("");
+    $("input[name=Descripcion]").val("");
+    $("#btnCategoria").text("Crear Categoria");
 }
 
 
@@ -84,5 +84,15 @@ function seleccionarCategoria(id, elemento) {
     idcategoria = id;
     $("input[name=NombreCategoria]").val(nombre);
     $("input[name=Descripcion]").val(descripcion);
-    
+
+}
+
+
+
+function MostrarCategoria() {
+    $('#msg-MostrarFormularioCategoria').show();
+}
+
+function CancelarCategoria() {
+    $('#msg-MostrarFormularioCategoria').hide();
 }
