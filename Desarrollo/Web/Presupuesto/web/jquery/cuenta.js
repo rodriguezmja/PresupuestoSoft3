@@ -14,8 +14,24 @@ function  crearCuenta() {
         monto: Monto,
         usuario_id: UsuarioId},
             function (response) {
-                alert(response.message);
-                obtenerCuenta();
+                //alert(response.message);
+                if (response.message === "insert")
+                {
+                    obtenerCuenta();
+                    MostrarMsgAddCuenta();
+                } else if (response.message === "equal")
+                {
+                    obtenerCuenta();
+                    MostrarMsgAlertaCuenta();
+                } else if (response.message === "error")
+                {
+                    obtenerCuenta();
+                    MostrarMsgAlertaCuenta();
+                } else
+                {
+                    obtenerCuenta();
+                    MostrarMsgUpdateCuenta();
+                }
             });
 
 }
@@ -67,12 +83,12 @@ function  obtenerCuenta() {
             html += "<div class='stats'>";
             html += "<div class='button-container'>";
             html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>";
-            html += "<i class='material-icons'>edit</i>";           
+            html += "<i class='material-icons'>edit</i>";
             html += "<div class='ripple-container'></div></button>";
             html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCuenta(" + listaCuenta[i].id + ",this)'>";
             html += "<i class='material-icons'>close</i>";
             html += "</button>";
-             html += "<div class='ripple-container'></div></button>";
+            html += "<div class='ripple-container'></div></button>";
             html += "<button id='btnAnadirMontoCuenta' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Editar Cuenta' rel='tooltip' data-toggle='collapse' data-target='#demo'>";
             html += "<i class='material-icons'>add_circle_outline</i>";
             html += "<div class='ripple-container'></div></button>";
@@ -86,6 +102,19 @@ function  obtenerCuenta() {
     });
 }
 
+function NuevaCuenta(){
+    ocultarTodo();
+    limpiarCuenta();
+}
+
+function ocultarTodo(){
+    $('#msg-AddCuenta').hide();
+    $('#msg-DeleteCuenta').hide();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
+}
+
+
 function limpiarCuenta() {
     idcuenta = 0;
     $("input[name=NombreCuenta]").val("");
@@ -96,18 +125,68 @@ function limpiarCuenta() {
 function eliminarCuenta(id, elemento) {
     $.get("api/controladorcuenta/eliminarcuenta", {
         cuenta_id: id}, function (response) {
-        alert(response.message);
-        $(elemento).parent().parent().remove();
+        //alert(response.message);
+        if (response.message === "delete")
+        {
+            $(elemento).parent().parent().remove();
+            MostrarMsgDeleteCuenta();                       
+        } else if (response.message === "error")
+        {
+            MostrarMsgAlertaCuenta();
+        }
+        //$(elemento).parent().parent().remove();
     });
     obtenerCuenta();
 }
 
 function seleccionarCuenta(id, elemento) {
-    var nomcuenta = $("#nomcuenta"+id).text();
-    var montocuenta = $("#montocuenta"+id).text();
+    MostrarCuenta();
+    var nomcuenta = $("#nomcuenta" + id).text();
+    var montocuenta = $("#montocuenta" + id).text();
     $("#btnCuenta").text("Modificar Cuenta");
     idcuenta = id;
     $("input[name=NombreCuenta]").val(nomcuenta);
     $("input[name=Monto]").val(montocuenta);
 
+}
+
+
+/**********************************************/
+// para los mensajes emergentes
+function MostrarMsgAddCuenta() {
+    $('#msg-AddCuenta').show();
+    $('#msg-DeleteCuenta').hide();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
+}
+
+function MostrarMsgDeleteCuenta() {
+    $('#msg-DeleteCuenta').show();
+    $('#msg-AddCuenta').hide();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
+}
+
+function MostrarMsgUpdateCuenta() {
+    $('#msg-UpdateCuenta').show();
+    $('#msg-AddCuenta').hide();
+    $('#msg-DeleteCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
+}
+
+function MostrarMsgAlertaCuenta() {
+    $('#msg-AlertaCuenta').show();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AddCuenta').hide();
+    $('#msg-DeleteCuenta').hide();
+}
+
+function MostrarCuenta() {
+    $('#msg-MostrarFormulario').show();  
+    NuevaCuenta();
+}
+
+function CancelarCuenta() {
+    $('#msg-MostrarFormulario').hide();
+    NuevaCuenta();
 }
