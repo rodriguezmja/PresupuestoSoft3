@@ -147,7 +147,6 @@ function seleccionarCuenta(id, elemento) {
     idcuenta = id;
     $("input[name=NombreCuenta]").val(nomcuenta);
     $("input[name=Monto]").val(montocuenta);
-
 }
 
 
