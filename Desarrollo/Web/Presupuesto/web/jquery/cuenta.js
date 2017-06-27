@@ -128,15 +128,15 @@ function eliminarCuenta(id, elemento) {
         //alert(response.message);
         if (response.message === "delete")
         {
-            $(elemento).parent().parent().remove();
-            MostrarMsgDeleteCuenta();                       
+            MostrarMsgDeleteCuenta();
+            $(elemento).parent().parent().remove(); 
+            obtenerCuenta();
         } else if (response.message === "error")
         {
             MostrarMsgAlertaCuenta();
         }
         //$(elemento).parent().parent().remove();
-    });
-    obtenerCuenta();
+    });    
 }
 
 function seleccionarCuenta(id, elemento) {
