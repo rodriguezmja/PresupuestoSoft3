@@ -43,7 +43,7 @@
 
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
-                        Creative Tim
+                        Soft. Presupuesto
                     </a>
                 </div>
 
@@ -124,7 +124,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a href="user.html" class="dropdown-toggle" >
                                         <i class="material-icons">person</i>
                                         <p class="hidden-lg hidden-md">Profile</p>
                                     </a>
@@ -152,11 +152,21 @@
                                     <div class="card-header" data-background-color="purple">
                                         <h4 class="title">CONSOLIDADO DE CUENTAS</h4>
                                         <p class="category">SALDO DE CAJA DE AHORROS</p>
-                                    </div>
-                                    <div class="card-content">
-                                        <div id="typography">
-                                            <div class="row">
+                                    </div>                                    
 
+                                    <div class="card-content">
+                                        <div class="button-container">
+                                            <button onclick="MostrarCuenta()" class="btn btn-primary">Crear Cuenta</button>
+                                        </div>
+                                        
+                                        <div id="msg-DeleteCuenta" class="alert alert-danger" role="alert" style="display: none">Cuenta eliminada exitosamente...</div>
+                                        
+                                        <div id="msg-MostrarFormulario" class="msg-MostrarForm" style="display: none">
+                                            <div class="row">
+                                                <div id="msg-AddCuenta" class="alert alert-success" role="alert" style="display: none">Cuenta agregada exitosamente...</div>
+                                                <div id="msg-UpdateCuenta" class="alert alert-info" role="alert" style="display: none">Actualizacion exitosa...</div>
+                                                <div id="msg-AlertCuenta" class="alert alert-warning" role="alert" style="display: none">El nombre de la cuenta ya existe...</div>
+                                                
                                                 <div class="col-md-3">
                                                     <div class="form-group label-floating is-empty">
                                                         <label for="NombreCuenta" class="control-label">Nombre Cuenta</label>
@@ -164,56 +174,60 @@
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-3">
                                                     <div class="form-group label-floating is-empty">
                                                         <label for="Monto" class="control-label">Monto</label>
                                                         <input class="form-control" type="number" id="monto" name="Monto"  required="required"/>
                                                         <span class="material-input"></span>
                                                     </div>        
-                                                </div>
-                                                <br>
-
-                                                <br>
+                                                </div>                                                
                                             </div>
                                             <div class="button-container">
-                                                <!--<button><span>Guardar</span></button>-->
-                                                <button onclick="crearCuenta()" class="btn btn-primary">Crear Cuenta</button>
+                                                <button onclick="crearCuenta()" class="btn btn-primary">Guardar</button>
+                                                <button onclick="NuevaCuenta()" class="btn btn-primary">Nuevo +</button>                                                
+                                                <button onclick="CancelarCuenta()" class="btn btn-primary">Cancelar x</button>
                                             </div>
-                                            <div class="row">
-                                                <div id="mostrarCuentas">
-                                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                                        <div class="card card-stats">
-                                                            <div class="card-header" data-background-color="green">
-                                                                <i class="material-icons">store</i>
+                                        </div>
+
+                                        <!--Mostrar Cuenta-->                                       
+                                        <div class="row">
+                                            <div id="mostrarCuentas">
+                                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                                    <div class="card card-stats">
+                                                        <div class="card-header" data-background-color="green">
+                                                            <i class="material-icons">store</i>
+                                                        </div>
+                                                        <div class="card-content">
+                                                            <div id="InformacionCuenta">
+                                                                <p class="category">Revenue</p>
+                                                                <h3 class="title">$34,245</h3>
                                                             </div>
-                                                            <div class="card-content">
-                                                                <div id="InformacionCuenta">
-                                                                    <p class="category">Revenue</p>
-                                                                    <h3 class="title">$34,245</h3>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer">
-                                                                <div class="stats">
-                                                                    <i class="material-icons">date_range</i> Last 24 Hours
-                                                                </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="stats">
+                                                                <i class="material-icons">date_range</i> Last 24 Hours
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="row">
-                                                <br><br>
-                                            </div>
-                                            
-                                            <div class="card-header" data-background-color="purple">
-                                                <h4 class="title">CATEGORIAS</h4>
-                                                <p class="category">DESCRIBE LAS CATEGORIAS DE LOS GASTOS A EFECTUAR</p>
-                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <div class="row">
+                                <!--Mostrar Categoria-->
+                                <div class="card">
+                                    <div class="card-header" data-background-color="purple">
+                                        <h4 class="title">CATEGORIAS</h4>
+                                        <p class="category">DESCRIBE LAS CATEGORIAS DE LOS GASTOS A EFECTUAR</p>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="button-container">
+                                            <button onclick="MostrarCategoria()" class="btn btn-primary">Nueva Categoria</button>
+                                        </div>
 
+                                        <div id="msg-MostrarFormularioCategoria" class="msg-MostrarForm" style="display: none">
+                                            <div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group label-floating is-empty">
                                                         <label for="NombreCategoria" class="control-label">Nombre Categoria</label>
@@ -229,55 +243,46 @@
                                                         <span class="material-input"></span>
                                                     </div>        
                                                 </div>
-                                                <br>
-
-                                                <br>
-                                            </div>
-                                            <div class="button-container">
-                                                <!--<button><span>Guardar</span></button>-->                           
-                                                <button id="btnCategoria" onclick="crearCategoria()" class="btn btn-primary">Crear Categoria</button>
-                                                <button onclick="limpiarCategoria()" class="btn btn-primary">limpiar Categoria</button>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="card">
-                                                        <!--<div class="card-header" data-background-color="purple">
-                                                            <h4 class="title">Categorias de Gastos</h4>
-                                                            <p class="category">Describe las categorias de los gastos a efectuar</p>
-                                                        </div>-->
-                                                        <div class="card-content table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead class="text-warning">
-                                                                    <tr><th>ID</th>
-                                                                        <th>Nombre</th>
-                                                                        <th>Descripcion</th>
-                                                                    </tr></thead>
-                                                                <tbody id="filacat">
-
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>2papa</td>
-                                                                        <td>cosa</td>
-                                                                        <td class="td-actions text-right">
-                                                                            <button title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Edit Task" rel="tooltip">
-                                                                                <i class="material-icons">edit</i>
-                                                                                <div class="ripple-container"></div></button>
-                                                                            <button title="" class="btn btn-danger btn-simple btn-xs" type="button" data-original-title="Remove" rel="tooltip">
-                                                                                <i class="material-icons">close</i>
-                                                                            </button>
-                                                                        </td>
-
-                                                                    </tr>
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                            <div class="button-container">                         
+                                                <button id="btnCategoria" onclick="crearCategoria()" class="btn btn-primary">Guardar + </button>
+                                                <button onclick="limpiarCategoria()" class="btn btn-primary">Nuevo +</button>
+                                                <button onclick="CancelarCategoria()" class="btn btn-primary">Cancelar X</button>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="card">
+                                                    <div class="card-content table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead class="text-warning">
+                                                                <tr><th>ID</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Descripcion</th>
+                                                                </tr></thead>
+                                                            <tbody id="filacat">
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>2papa</td>
+                                                                    <td>cosa</td>
+                                                                    <td class="td-actions text-right">
+                                                                        <button title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Edit Task" rel="tooltip">
+                                                                            <i class="material-icons">edit</i>
+                                                                            <div class="ripple-container"></div></button>
+                                                                        <button title="" class="btn btn-danger btn-simple btn-xs" type="button" data-original-title="Remove" rel="tooltip">
+                                                                            <i class="material-icons">close</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
