@@ -42,20 +42,20 @@ public class ControladorCuenta {
             Cuenta cuenta = new Cuenta(con);
             cuenta = cuenta.buscarxNombre(nombrecuenta);
             if (cuenta != null) {
-                respuesta = new SimpleResponse(true, "El nombre de la cuenta ya existe");
+                respuesta = new SimpleResponse(true, "equal");
             } else {
                 cuenta = new Cuenta(0, nombrecuenta, monto, usuario_id);
                 cuenta.setCon(con);
                 if (idcuenta == 0) {
                     cuenta.insertar();
-                    respuesta = new SimpleResponse(true, "La Cuenta se creo correctamente");
+                    respuesta = new SimpleResponse(true, "insert");
                 } else {
                     cuenta.modificar(idcuenta);
-                    respuesta = new SimpleResponse(true, "La Cuenta se modifico correctamente");
+                    respuesta = new SimpleResponse(true, "update");
                 }
             }
         } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "no se creo correctamente la cuenta");
+            respuesta = new SimpleResponse(true, "error");
         }
         return respuesta;
     }
@@ -101,10 +101,10 @@ public class ControladorCuenta {
             Cuenta cuenta = new Cuenta();
             cuenta.setCon(con);
             cuenta.eliminar(cuenta_id);
-            respuesta = new SimpleResponse(true, "La Cuenta se elimino correctamente");
+            respuesta = new SimpleResponse(true, "delete");
 
         } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "no se elimino correctamente la cuenta");
+            respuesta = new SimpleResponse(true, "error");
         }
         return respuesta;
     }
