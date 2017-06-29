@@ -87,8 +87,6 @@ function seleccionarCategoria(id, elemento) {
 
 }
 
-
-
 function MostrarCategoria() {
     $('#msg-MostrarFormularioCategoria').show();
 }

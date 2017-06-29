@@ -89,6 +89,16 @@ public class Cuenta {
         }
         return null;
     }
+    
+    public Cuenta obtenerCuenta(int cuentaid) throws SQLException {
+        String consulta = "select * from Cuenta where cuenta_id='"+ cuentaid +"'"; 
+        ResultSet rs = con.consultar(consulta);
+        List<Cuenta> lis = cargar(rs);
+        if (lis.size() > 0) {
+            return lis.get(0);
+        }
+        return null;
+    }
 
     public void modificar(int idcuenta) throws SQLException {
         String consulta = "update Cuenta set nombre = '" + nombre + "', monto = '" + monto + "', user_id = '" + user_id + "' where cuenta_id=" + idcuenta;
