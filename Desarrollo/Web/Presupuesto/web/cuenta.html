@@ -217,13 +217,13 @@
                                 <div id="demo" class="collapse">
                                     <div class="row">
                                         <div class="col-sm-5 form-group">
-                                    <span id="NombreCuentaForm" class="badge">texto</span> <br>
-                                    <label class="control-label" for="TipoCat">Seleccione una Categoria de Ingreso</label>
-                                    <select class="form-control" id="seleccionCategoria" name="TipoCat" required autofocus />
-                                        <option value='0' selected>--Seleccione Categoria--</option>
-                                        <option value='1'>1</option>
-                                        <option value='2'>2</option>
-                                    </select>
+                                            <span id="NombreCuentaForm" class="badge">texto</span> <br>
+                                            <label class="control-label" for="TipoCat">Seleccione una Categoria de Ingreso</label>
+                                            <select class="form-control" id="seleccionCategoria" name="TipoCat" required autofocus />
+                                            <option value='0' selected>--Seleccione Categoria--</option>
+                                            <option value='1'>1</option>
+                                            <option value='2'>2</option>
+                                            </select>
                                             <label class="control-label" for="MontoTransaccion">Añadir Nuevo monto</label>
                                             <input class="form-control" type="number" id="montoNuevo" name="MontoTransaccion" step="0.01" required autofocus />
                                             <label class="control-label" for="Concepto">Por Concepto:</label>
@@ -279,6 +279,16 @@
                                                         <span class="material-input"></span>
                                                     </div>        
                                                 </div>
+                                                
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <select class="form-control" id="SeleccionTipoCategoria" name="TipoCat" required autofocus />
+                                                        <option value='0' selected>Seleccione Tipo Categoria</option>
+                                                        <option value='1'>Egreso</option>
+                                                        <option value='2'>Ingreso</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="button-container">                         
@@ -323,6 +333,73 @@
 
                                     </div>
                                 </div>
+
+                                <div class="card">
+                                    <div class="card-header" data-background-color="purple">
+                                        <h4 class="title">TRANSACCION</h4>
+                                        <p class="category">EFECTUA TRANSACCIONES DE DINERO</p>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="button-container">
+                                            <button id="alternar-respuesta-ej3" class="btn btn-primary">Nueva Transaccion</button>
+                                        </div>
+
+                                        <div id="msg-MostrarFormularioTransaccion" class="msg-MostrarForm" style="display: block">
+                                            <div class="row">                                               
+                                                                                                                                               
+                                                <div class="col-md-3">
+                                                    <div class="form-group is-empty">
+                                                        <label for="NombreCategoria" class="control-label">Tipo</label>
+                                                        <input class="form-control" type="text" id="inputnombrecategoria" name="NombreCategoria" required="required"/>
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label for="Descripcion" class="control-label">Monto</label>
+                                                        <input class="form-control" type="text" id="descripcion" name="Descripcion"  required="required"/>
+                                                        <span class="material-input"></span>
+                                                    </div>        
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label for="Descripcion" class="control-label">Detalle</label>
+                                                        <input class="form-control" type="text" id="descripcion" name="Descripcion"  required="required"/>
+                                                        <span class="material-input"></span>
+                                                    </div>        
+                                                </div>
+
+                                                <div class="form-group label-floating is-empty">                                                    
+                                                    <select class="form-control" id="SeleccionTipoCategoria" name="TipoCat" required autofocus />
+                                                    <option value='0' selected>--Seleccione Cuenta--</option>
+                                                    <option value='1'>Egreso</option>
+                                                    <option value='2'>Ingreso</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="form-group label-floating is-empty">
+                                                        <select class="form-control" id="SeleccionTipoCategoria" name="TipoCat" required autofocus />
+                                                        <option value='0' selected>--Seleccione Categortia--</option>
+                                                        <option value='1'>Egreso</option>
+                                                        <option value='2'>Ingreso</option>
+                                                        </select>
+                                                    </div>
+                                            </div>
+
+                                            <div class="button-container">                         
+                                                <button id="btnCategoria" onclick="crearCategoria()" class="btn btn-primary">Guardar + </button>
+                                                <button onclick="limpiarCategoria()" class="btn btn-primary">Nuevo +</button>
+                                                <button onclick="CancelarCategoria()" class="btn btn-primary">Cancelar X</button>
+                                            </div>
+                                        </div>
+
+
+                            </div>
+                        </div>
+
                             </div>
                         </div>
                     </div>
