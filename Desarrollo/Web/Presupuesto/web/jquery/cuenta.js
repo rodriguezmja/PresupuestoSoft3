@@ -110,7 +110,10 @@ function obtenerCategoriasCuenta() {
         listaCategoria = $.parseJSON(response.message);
         var html = "<option value='0' selected>--Seleccione Categoria--</option>";
         for (var i = 0; i < listaCategoria.length; i++) {
-            html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
+            if (listaCategoria[i].tipocategoria==="Ingreso") {
+                html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
+            }
+            
         }
         $("#seleccionCategoria").html(html);
     });

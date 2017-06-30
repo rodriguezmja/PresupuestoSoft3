@@ -104,7 +104,7 @@ function  crearTransaccionIngreso() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
     //var CuentaId = $("#nomcuenta").data("cuenta_id");
     //var CuentaIdDestino = "";
-    var CategoriaId = 12;
+    var CategoriaId = document.getElementById("seleccionCategoria").value;;
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
@@ -156,6 +156,7 @@ function eliminarTransaccion(id, elemento) {
 function seleccionarCuentaTransaccion(id, elemento) {
     var nomcuenta = $("#nomcuenta"+id).text();
     var montocuenta = $("#montocuenta"+id).text();
+    $("#NombreCuentaForm").text("Ingreso para la Cuenta: "+nomcuenta);
     //var nombre = $(elemento).parent().parent().parent().parent().find("p:eq(1)").html();
    // var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
     //$("#btnCuenta").text("Modificar Cuenta");
