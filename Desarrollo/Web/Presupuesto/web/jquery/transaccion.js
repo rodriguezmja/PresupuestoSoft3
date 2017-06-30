@@ -108,19 +108,19 @@ function  obtenerTransacciones() {
 
         for (var i = 0; i < listaTransaccion.length; i++) {
             html += "<tr>";
-            html += "<td id='1'>" + listaTransaccion[i].id + "</td>";
-            html += "<td id='2'>" + listaTransaccion[i].fecha + "</td>";
-            html += "<td id='3'>" + listaTransaccion[i].tipo + "</td>";
-            html += "<td id='4'>" + listaTransaccion[i].monto + "</td>";
-            html += "<td id='5'>" + listaTransaccion[i].detalle + "</td>";
-            html += "<td id='6'>" + listaTransaccion[i].cuenta_id + "</td>";
-            html += "<td id='7'>" + listaTransaccion[i].cuenta_id_destino + "</td>";
-            html += "<td id='8'>" + listaTransaccion[i].categoria_id + "</td>";
+            html += "<td id='a'>" + listaTransaccion[i].id + "</td>";
+            html += "<td id='b'>" + listaTransaccion[i].fecha + "</td>";
+            html += "<td id='c'>" + listaTransaccion[i].tipo + "</td>";
+            html += "<td id='d'>" + listaTransaccion[i].monto + "</td>";
+            html += "<td id='e'>" + listaTransaccion[i].detalle + "</td>";
+            html += "<td id='f'>" + listaTransaccion[i].cuenta_id + "</td>";
+            html += "<td id='g'>" + listaTransaccion[i].cuenta_id_destino + "</td>";
+            html += "<td id='h'>" + listaTransaccion[i].categoria_id + "</td>";
             html += "<td class='td-actions text-right'>";
-            html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCategoria(" + listaCategoria[i].id + ",this)'>";
+            html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCategoria(" + listaTransaccion[i].id + ",this)'>";
             html += "<i class='material-icons'>edit</i>";
             html += "<div class='ripple-container'></div></button>";
-            html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCategoria(" + listaCategoria[i].id + ",this)'>";
+            html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCategoria(" + listaTransaccion[i].id + ",this)'>";
             html += "<i class='material-icons'>close</i>";
             html += "</button>";
             html += "</td>";
