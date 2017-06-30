@@ -28,7 +28,7 @@ public class ControladorCategoria {
     @Path("/crearcategoria")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse crearCategoria(@QueryParam("idcategoria") int idcategoria, @QueryParam("nombrecategoria") String nombrecategoria, @QueryParam("descripcion") String descripcion, @QueryParam("usuario_id") int usuario_id) {
+    public SimpleResponse crearCategoria(@QueryParam("idcategoria") int idcategoria, @QueryParam("tipocategoria") String tipocategoria, @QueryParam("nombrecategoria") String nombrecategoria, @QueryParam("descripcion") String descripcion, @QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         SimpleResponse respuesta;
         try {
@@ -37,7 +37,7 @@ public class ControladorCategoria {
             if (categoria != null) {
                 respuesta = new SimpleResponse(true, "El nombre de la categoria ya existe");
             } else {
-                categoria = new Categoria(0, nombrecategoria, descripcion, usuario_id);
+                categoria = new Categoria(0, tipocategoria, nombrecategoria, descripcion, usuario_id);
                 categoria.setCon(con);
                 if (idcategoria == 0) {
                     categoria.insertar();
@@ -68,6 +68,7 @@ public class ControladorCategoria {
             respuesta = "[";
             for (int i = 0; i < listainfoCategorias.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoCategorias.get(i).getCategoria_id()
+                        + "\",\"tipocategoria\":\"" + listainfoCategorias.get(i).getTipocategoria()
                         + "\",\"nombre\":\"" + listainfoCategorias.get(i).getNombre()
                         + "\",\"descripcion\":\"" + listainfoCategorias.get(i).getDescripcion()
                         + "\",\"user_id\":\"" + listainfoCategorias.get(i).getUsuario()

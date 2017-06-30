@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class Categoria {
     private int categoria_id;
+    private String tipocategoria;
     private String nombre;
     private String descripcion;
     private int user_id;
@@ -25,8 +26,9 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(int categoria_id, String nombre, String descripcion, int usuario_id) {
+    public Categoria(int categoria_id, String tipocategoria, String nombre, String descripcion, int usuario_id) {
         this.categoria_id = categoria_id;
+        this.tipocategoria = tipocategoria;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.user_id = usuario_id;
@@ -50,6 +52,7 @@ public class Categoria {
             while (rs.next()) {
                 Categoria aux = new Categoria(con);
                 aux.setCategoria_id(rs.getInt("categoria_id"));
+                aux.setTipocategoria(rs.getString("tipocategoria"));
                 aux.setNombre(rs.getString("nombre"));
                 aux.setDescripcion(rs.getString("descripcion"));
                 aux.setUsuario(rs.getInt("user_id"));
@@ -88,7 +91,7 @@ public class Categoria {
     }
 
     public void modificar(int id) throws SQLException {
-        String consulta = "update Categoria set nombre = '" + nombre + "', descripcion = '" + descripcion + "', user_id = '" + user_id + "' where categoria_id=" + id;
+        String consulta = "update Categoria set tipocategoria = '" + tipocategoria + "', nombre = '" + nombre + "', descripcion = '" + descripcion + "', user_id = '" + user_id + "' where categoria_id=" + id;
         con.manipular(consulta);
     }
     public void eliminar(int id) throws SQLException {
@@ -97,7 +100,7 @@ public class Categoria {
     }
 
     public void insertar() throws SQLException {            
-        String consulta = "insert into  presupuesto.dbo.Categoria(nombre, descripcion, user_id) values('"+ nombre + "','" + descripcion + "','" + user_id + "')";
+        String consulta = "insert into  presupuesto.dbo.Categoria(tipocategoria, nombre, descripcion, user_id) values('"+ tipocategoria + "','"+ nombre + "','" + descripcion + "','" + user_id + "')";
         con.manipular(consulta);     
     }
 
@@ -133,5 +136,19 @@ public class Categoria {
         this.user_id = usuario_id;
     }
     
-    
+    public String getTipocategoria() {
+        return tipocategoria;
+    }
+
+    public void setTipocategoria(String tipocategoria) {
+        this.tipocategoria = tipocategoria;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 }
