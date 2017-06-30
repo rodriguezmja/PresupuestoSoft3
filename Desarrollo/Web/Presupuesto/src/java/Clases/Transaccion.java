@@ -135,7 +135,7 @@ public class Transaccion {
 //    }
 
     public void insertar() throws SQLException {     
-        String consulta = "insert into  presupuesto.dbo.Transaccion(fecha, tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('"+ tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
+        String consulta = "insert into presupuesto.dbo.Transaccion(fecha, tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('"+ fecha + "','"+ tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
         con.manipular(consulta);     
     }
     

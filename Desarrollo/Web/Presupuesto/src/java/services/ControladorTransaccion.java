@@ -78,13 +78,13 @@ public class ControladorTransaccion {
     @Path("/obtenertransaccion")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse obtenerTransaccion(@QueryParam("idtransaccion") int transaccion_id) {
+    public SimpleResponse obtenerTransaccion(@QueryParam("usuario_id") int usuario_id) {
         Conn con = new Conn();
         String respuesta = "";
         try {
             Transaccion infoTransaccion = new Transaccion();
             infoTransaccion.setCon(con);
-            List<Transaccion> listainfoTransacciones = infoTransaccion.buscarxUsuario(transaccion_id);
+            List<Transaccion> listainfoTransacciones = infoTransaccion.buscarxUsuario(usuario_id);
             respuesta = "[";
             for (int i = 0; i < listainfoTransacciones.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoTransacciones.get(i).getTransaccion_id()
