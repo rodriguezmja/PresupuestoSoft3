@@ -29,6 +29,7 @@ function limpiarCategoria() {
     $("");
     $("input[name=NombreCategoria]").val("");
     $("input[name=Descripcion]").val("");
+    $("select[id=SeleccionTipoCategoria]").val("");
     $("#btnCategoria").text("Crear Categoria");
 }
 

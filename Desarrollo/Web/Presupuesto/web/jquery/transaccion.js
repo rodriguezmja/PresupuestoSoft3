@@ -104,7 +104,7 @@ function  crearTransaccionIngreso() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
     //var CuentaId = $("#nomcuenta").data("cuenta_id");
     //var CuentaIdDestino = "";
-    var CategoriaId = document.getElementById("seleccionCategoria").value;;
+    var CategoriaId = document.getElementById("seleccionCategoria").value;
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
