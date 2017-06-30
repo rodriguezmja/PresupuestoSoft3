@@ -231,6 +231,79 @@
                                 </div>
                             </div>
                         </div>
+                                <br>
+                                <div>
+                                    <button class="btn btn-warning btn-lg" data-toggle="collapse" data-target="#frmTransaccion">PRESIONE AQUI PARA REGISTRAR GASTOS</button>
+                                </div> 
+                                <br>
+                                <!-- REGISTRAR TRANSACCIONES-->
+                                <div class="collapse" id="frmTransaccion">
+                                    <div class="card">
+                                        <div class="card-header" data-background-color="purple">
+                                            <h4 class="title">REGISTRO DE TRANSACCIONES</h4>
+                                            <p class="category">Registrar Gastos y Traspasos</p>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="button-container">
+                                                <button onclick="MostrarFomularioGastos()" class="btn btn-primary">Registrar Gastos</button>
+                                            </div>
+                                            
+                                            <div id="msg-MostrarFormularioGastos" class="msg-MostrarForm" style="display: none">
+                                                <div class="col-lg-6 form-group">
+                                                    <label class="control-label" for="MontoGasto">Añadir Monto del Gasto</label>
+                                                    <input class="form-control" type="number" id="MontoGasto" name="MontoGasto" step="0.01" required autofocus />
+                                                    <label class="control-label" for="ConceptoGasto">Por Concepto:</label>
+                                                    <input class="form-control" type="text" id="ConceptoGasto" name="ConceptoGasto" required autofocus />
+                                                    <label class="control-label" for="cuentaGasto">Seleccione la cuenta para el Gasto</label>
+                                                    <select class="form-control" id="cuentaGasto" name="cuentaGasto" required autofocus />
+                                                    <option value='0' selected>--Seleccione Cuenta--</option>
+                                                    <option value='1'>1</option>
+                                                    <option value='2'>2</option>
+                                                    </select>
+                                                    <label class="control-label" for="categoriaGasto">Seleccione la categoria para el Gasto</label>
+                                                    <select class="form-control" id="categoriaGasto" name="categoriaGasto" required autofocus />
+                                                    <option value='0' selected>--Seleccione Categoria--</option>
+                                                    <option value='1'>1</option>
+                                                    <option value='2'>2</option>
+                                                    </select>
+                                                
+
+                                                <div class="button-container">                         
+                                                    <button id="btnTransaccionGasto" onclick="crearTransaccionEgreso()" class="btn btn-primary">Guardar + </button>
+                                                    <button onclick="limpiarTransaccion()" class="btn btn-primary">Nuevo +</button>
+                                                    <button onclick="CancelarTransaccion()" class="btn btn-primary">Cancelar X</button>
+                                                </div>
+                                                    </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="card">
+                                                        <div class="card-content table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead class="text-warning">
+                                                                    <tr><th>ID</th>
+                                                                        <th>Fecha</th>
+                                                                        <th>Tipo</th>
+                                                                        <th>Monto</th>
+                                                                        <th>Concepto</th>
+                                                                        <th>Cuenta</th>
+                                                                        <th>Cuenta Destino</th>
+                                                                        <th>Categoria</th>
+                                                                    </tr></thead>
+                                                                <tbody id="filaTransacciones">
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--FIN REGISTRAR TRANSACCIONES-->
 
                                 <!--Mostrar Categoria-->
                                 <div class="card">
