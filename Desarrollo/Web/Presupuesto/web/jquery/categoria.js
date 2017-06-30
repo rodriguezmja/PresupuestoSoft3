@@ -4,7 +4,7 @@ $(document).ready(function () {
     obtenerCategoria();
 });
 function  crearCategoria() {
-     
+
     var TipoCategoria = $("#SeleccionTipoCategoria option:selected").text();
     var NombreCategoria = $("input[name=NombreCategoria]").val();
     var Descripcion = $("input[name=Descripcion]").val();
@@ -52,10 +52,10 @@ function obtenerCategoriasEgreso() {
         listaCategoria = $.parseJSON(response.message);
         var html = "<option value='0' selected>--Seleccione Categoria--</option>";
         for (var i = 0; i < listaCategoria.length; i++) {
-            if (listaCategoria[i].tipocategoria==="Egreso") {
+            if (listaCategoria[i].tipocategoria === "Egreso") {
                 html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
             }
-            
+
         }
         $("#seleccionCategoria").html(html);
     });
