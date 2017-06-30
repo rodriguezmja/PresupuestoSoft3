@@ -113,7 +113,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <i class="material-icons">person</i>
                                         <span id="usuariologueado">user</span>
-                                        
+
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="user.html">Perfil de Usuario</a></li>
@@ -147,26 +147,27 @@
 
                                     <div class="card-content">
                                         <div class="button-container">
-                                            <button onclick="MostrarCuenta()" class="btn btn-primary">Crear Cuenta</button>
+                                            <button id="alternar-respuesta-ej1" class="btn btn-primary">Crear Cuenta</button>
                                         </div>
-                                        
+
                                         <div id="msg-DeleteCuenta" class="alert alert-danger" role="alert" style="display: none">Cuenta eliminada exitosamente...</div>
-                                        
+
                                         <div id="msg-MostrarFormulario" class="msg-MostrarForm" style="display: none">
                                             <div class="row">
                                                 <div id="msg-AddCuenta" class="alert alert-success" role="alert" style="display: none">Cuenta agregada exitosamente...</div>
                                                 <div id="msg-UpdateCuenta" class="alert alert-info" role="alert" style="display: none">Actualizacion exitosa...</div>
                                                 <div id="msg-AlertCuenta" class="alert alert-warning" role="alert" style="display: none">El nombre de la cuenta ya existe...</div>
-                                                
+                                                <div id="msg-ErrorCuenta" class="alert alert-warning" role="alert" style="display: none">Se ha producido un error al intentar crear la cuenta...</div>
+
                                                 <div class="col-md-3">
-                                                    <div class="form-group is-empty">
+                                                    <div class="form-group label-floating is-empty">
                                                         <label for="NombreCuenta" class="control-label">Nombre Cuenta</label>
                                                         <input class="form-control" type="text" id="inputnombrecuenta" name="NombreCuenta" required="required"/>
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group is-empty">
+                                                    <div class="form-group label-floating is-empty">
                                                         <label for="Monto" class="control-label">Monto</label>
                                                         <input class="form-control" type="number" id="monto" name="Monto"  required="required"/>
                                                         <span class="material-input"></span>
@@ -197,13 +198,13 @@
                                                         <div class="card-footer">
                                                             <div class="stats">
                                                                 <div class="button-container">                           
-                                                    <button id="btnEditarCuenta" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div></button>
-                                                    <button id="btnAnadirMontoCuenta" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip" data-toggle="collapse" data-target="#demo">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div></button>
-                                                </div>
+                                                                    <button id="btnEditarCuenta" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip">
+                                                                        <i class="material-icons">edit</i>
+                                                                        <div class="ripple-container"></div></button>
+                                                                    <button id="btnAnadirMontoCuenta" title="" class="btn btn-primary btn-simple btn-xs" type="button" data-original-title="Editar Cuenta" rel="tooltip" data-toggle="collapse" data-target="#demo">
+                                                                        <i class="material-icons">edit</i>
+                                                                        <div class="ripple-container"></div></button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -214,8 +215,8 @@
                                 </div>
 
                                 <div id="demo" class="collapse">
-                            <div class="row">
-                                <div class="col-sm-5 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-5 form-group">
                                     <span id="NombreCuentaForm" class="badge">texto</span> <br>
                                     <label class="control-label" for="TipoCat">Seleccione una Categoria de Ingreso</label>
                                     <select class="form-control" id="seleccionCategoria" name="TipoCat" required autofocus />
@@ -223,14 +224,14 @@
                                         <option value='1'>1</option>
                                         <option value='2'>2</option>
                                     </select>
-                                    <label class="control-label" for="MontoTransaccion">Añadir Nuevo monto</label>
-                                    <input class="form-control" type="number" id="montoNuevo" name="MontoTransaccion" step="0.01" required autofocus />
-                                    <label class="control-label" for="Concepto">Por Concepto:</label>
-                                    <input class="form-control" type="text" id="descripcionMontoNuevo" name="Concepto" required autofocus />
-                                    <button id="nuevoMonto" class="btn btn-warning" text="Guardar" onclick="crearTransaccionIngreso()">Guardar</button>
+                                            <label class="control-label" for="MontoTransaccion">Añadir Nuevo monto</label>
+                                            <input class="form-control" type="number" id="montoNuevo" name="MontoTransaccion" step="0.01" required autofocus />
+                                            <label class="control-label" for="Concepto">Por Concepto:</label>
+                                            <input class="form-control" type="text" id="descripcionMontoNuevo" name="Concepto" required autofocus />
+                                            <button id="nuevoMonto" class="btn btn-warning" text="Guardar" onclick="crearTransaccionIngreso()">Guardar</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
                                 <!--Mostrar Categoria-->
                                 <div class="card">
@@ -240,13 +241,20 @@
                                     </div>
                                     <div class="card-content">
                                         <div class="button-container">
-                                            <button onclick="MostrarCategoria()" class="btn btn-primary">Nueva Categoria</button>
+                                            <button id="alternar-respuesta-ej2" class="btn btn-primary">Nueva Categoria</button>
                                         </div>
+
+                                        <div id="msg-DeleteCategoria" class="alert alert-danger" role="alert" style="display: none">Categoria eliminada exitosamente...</div>
 
                                         <div id="msg-MostrarFormularioCategoria" class="msg-MostrarForm" style="display: none">
                                             <div class="row">
+                                                <div id="msg-AddCategoria" class="alert alert-success" role="alert" style="display: none">Categoria agregada exitosamente...</div>
+                                                <div id="msg-UpdateCategoria" class="alert alert-info" role="alert" style="display: none">Actualizacion exitosa...</div>
+                                                <div id="msg-AlertCategoria" class="alert alert-warning" role="alert" style="display: none">El nombre de la categoria ya existe...</div>
+                                                <div id="msg-ErrorCategoria" class="alert alert-warning" role="alert" style="display: none">Se ha producido un error al intentar crear la categoria...</div>
+
                                                 <div class="col-md-3">
-                                                    <div class="form-group is-empty">
+                                                    <div class="form-group label-floating is-empty">
                                                         <label class="control-label" for="TipoCat">Seleccione el tipo de Categoria</label>
                                                         <select class="form-control" id="SeleccionTipoCategoria" name="TipoCat" required autofocus />
                                                             <option value='0' selected>--Seleccione Tipo Categoria--</option>
@@ -265,7 +273,7 @@
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                    <div class="form-group is-empty">
+                                                    <div class="form-group label-floating is-empty">
                                                         <label for="Descripcion" class="control-label">Descripcion</label>
                                                         <input class="form-control" type="text" id="descripcion" name="Descripcion"  required="required"/>
                                                         <span class="material-input"></span>
