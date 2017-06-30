@@ -110,10 +110,10 @@ function obtenerCategoriasCuenta() {
         listaCategoria = $.parseJSON(response.message);
         var html = "<option value='0' selected>--Seleccione Categoria--</option>";
         for (var i = 0; i < listaCategoria.length; i++) {
-            if (listaCategoria[i].tipocategoria==="Ingreso") {
+            if (listaCategoria[i].tipocategoria === "Ingreso") {
                 html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
             }
-            
+
         }
         $("#seleccionCategoria").html(html);
     });
@@ -171,7 +171,6 @@ function seleccionarCuenta(id, elemento) {
 // para los mensajes emergentes
 function MostrarMsgAddCuenta() {
     $(document).ready(function () {
-    $('#msg-AddCuenta').show();
         $('#msg-AddCuenta').toggle('slow');
         limpiarCuenta();
         setTimeout(function () {
@@ -191,7 +190,6 @@ function MostrarMsgDeleteCuenta() {
 
 function MostrarMsgUpdateCuenta() {
     $(document).ready(function () {
-    $('#msg-UpdateCuenta').show();
         $('#msg-UpdateCuenta').toggle('slow');
         limpiarCuenta();
         setTimeout(function () {
