@@ -30,22 +30,37 @@ public class ControladorTransaccion {
     @Path("/creartransaccion")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.APPLICATION_JSON)
-    public SimpleResponse crearTransaccion(@QueryParam("idtransaccion") int idtransaccion, @QueryParam("tipotransaccion") String tipotransaccion, @QueryParam("montotransaccion") int monto, @QueryParam("conceptotransaccion") String detalle, @QueryParam("user_id") int user_id, @QueryParam("cuenta_id") int idcuenta, @QueryParam("cuenta_id_destino") int idcuentadestino, @QueryParam("categoria_id") int idcategoria) {
+    public SimpleResponse crearTransaccion(@QueryParam("idtransaccion") int idtransaccion, @QueryParam("fecha") String fecha,@QueryParam("tipotransaccion") String tipotransaccion, @QueryParam("montotransaccion") int monto, @QueryParam("conceptotransaccion") String detalle, @QueryParam("user_id") int user_id, @QueryParam("cuenta_id") int idcuenta, @QueryParam("cuenta_id_destino") int idcuentadestino, @QueryParam("categoria_id") int idcategoria) {
         Conn con = new Conn();
         SimpleResponse respuesta;
         try {
             Transaccion transaccion = new Transaccion(con);
             transaccion = transaccion.buscarXid(idtransaccion);
             Cuenta cuenta=new Cuenta(con);
+            Cuenta cuentadestino=new Cuenta(con);
             cuenta = cuenta.obtenerCuenta(idcuenta);
+            cuentadestino = cuentadestino.obtenerCuenta(idcuentadestino);
             if (transaccion == null) {
-                transaccion = new Transaccion(0, tipotransaccion, monto, detalle, user_id, idcuenta, idcuentadestino, idcategoria);
+                transaccion = new Transaccion(0, fecha, tipotransaccion, monto, detalle, user_id, idcuenta, idcuentadestino, idcategoria);
                 transaccion.setCon(con);
                 transaccion.insertar();
                     if (tipotransaccion.equals("Ingreso")){
                         double montonuevo=cuenta.getMonto()+monto;
                         cuenta.setMonto(montonuevo);
                         cuenta.modificar(idcuenta);
+                    }
+                    if (tipotransaccion.equals("Egreso")){
+                        double montonuevo=cuenta.getMonto()-monto;
+                        cuenta.setMonto(montonuevo);
+                        cuenta.modificar(idcuenta);
+                    }
+                    if (tipotransaccion.equals("Traspaso")){
+                        double montoegreso=cuenta.getMonto()-monto;
+                        cuenta.setMonto(montoegreso);
+                        double montoingreso = cuentadestino.getMonto()+monto;
+                        cuentadestino.setMonto(montoingreso);
+                        cuenta.modificar(idcuenta);
+                        cuentadestino.modificar(idcuentadestino);
                     }
                 respuesta = new SimpleResponse(true, "La transaccion se creo correctamente");
             } else {
@@ -73,6 +88,7 @@ public class ControladorTransaccion {
             respuesta = "[";
             for (int i = 0; i < listainfoTransacciones.size(); i++) {
                 respuesta += "{\"id\":\"" + listainfoTransacciones.get(i).getTransaccion_id()
+                        + "\",\"fecha\":\"" + listainfoTransacciones.get(i).getFecha()
                         + "\",\"tipo\":\"" + listainfoTransacciones.get(i).getTipo()
                         + "\",\"monto\":\"" + listainfoTransacciones.get(i).getMonto()
                         + "\",\"detalle\":\"" + listainfoTransacciones.get(i).getConcepto()

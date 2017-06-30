@@ -17,6 +17,7 @@ import java.util.List;
 public class Transaccion {
     
     private int transaccion_id;
+    private String fecha; //fecha del sistema
     private String tipo; //ingreso, egreso Traspaso
     private double monto;
     private String concepto; 
@@ -35,8 +36,9 @@ public class Transaccion {
         this.con = con;
     }
 
-    public Transaccion(int transaccion_id, String tipo, int monto, String Concepto, int user_id, int cuentaOrigen, int cuentaDestino, int categoria) {
+    public Transaccion(int transaccion_id, String fecha, String tipo, int monto, String Concepto, int user_id, int cuentaOrigen, int cuentaDestino, int categoria) {
         this.transaccion_id = transaccion_id;
+        this.fecha = fecha;
         this.tipo = tipo;
         this.monto = monto;
         this.concepto = Concepto;
@@ -52,6 +54,7 @@ public class Transaccion {
             while (rs.next()) {
                 Transaccion aux = new Transaccion(con);
                 aux.setTransaccion_id(rs.getInt("transaccion_id"));
+                aux.setFecha(rs.getString("fecha"));
                 aux.setTipo(rs.getString("tipo"));
                 aux.setMonto(rs.getInt("monto"));
                 aux.setConcepto(rs.getString("detalle"));
@@ -122,7 +125,7 @@ public class Transaccion {
     }
 
     public void modificar(int idtransaccion) throws SQLException {
-        String consulta = "update Transaccion set tipo = '" + tipo + "', monto = '" + monto + "', detalle = '" + concepto + "', user_id = '" + user_id + "' , cuenta_id = '" + cuentaOrigen + "', cuenta_id_destino = '" + cuentaDestino + "', categoria_id = '" + categoria + "' where transaccion_id=" + transaccion_id;
+        String consulta = "update Transaccion set fecha = '" + fecha + "', tipo = '" + tipo + "', monto = '" + monto + "', detalle = '" + concepto + "', user_id = '" + user_id + "' , cuenta_id = '" + cuentaOrigen + "', cuenta_id_destino = '" + cuentaDestino + "', categoria_id = '" + categoria + "' where transaccion_id=" + transaccion_id;
         con.manipular(consulta);
     }
     
@@ -132,7 +135,7 @@ public class Transaccion {
 //    }
 
     public void insertar() throws SQLException {     
-        String consulta = "insert into  presupuesto.dbo.Transaccion(tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('"+ tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
+        String consulta = "insert into  presupuesto.dbo.Transaccion(fecha, tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('"+ tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
         con.manipular(consulta);     
     }
     
@@ -206,6 +209,13 @@ public class Transaccion {
         this.user_id = user_id;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 //    public SubCategoria getSubCategoria() {
 //        return subCategoria;
 //    }
