@@ -35,21 +35,21 @@ public class ControladorCategoria {
             Categoria categoria = new Categoria(con);
             categoria = categoria.buscarxNombre(nombrecategoria);
             if (categoria != null) {
-                respuesta = new SimpleResponse(true, "equal");
+                respuesta = new SimpleResponse(true, "El nombre de la categoria ya existe");
             } else {
                 categoria = new Categoria(0, tipocategoria, nombrecategoria, descripcion, usuario_id);
                 categoria.setCon(con);
                 if (idcategoria == 0) {
                     categoria.insertar();
-                    respuesta = new SimpleResponse(true, "insert");
+                    respuesta = new SimpleResponse(true, "La Categoria se creo correctamente");
                 } else {
                     categoria.modificar(idcategoria);
-                    respuesta = new SimpleResponse(true, "update");
+                    respuesta = new SimpleResponse(true, "La Categoria se modifico correctamente");
                 }
             }
 
         } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "error");
+            respuesta = new SimpleResponse(true, "no se pudieron guardar los cambios correctamente de la categoria");
         }
         return respuesta;
     }
@@ -96,10 +96,10 @@ public class ControladorCategoria {
             Categoria categoria = new Categoria();
             categoria.setCon(con);
             categoria.eliminar(categoria_id);
-            respuesta = new SimpleResponse(true, "delete");
+            respuesta = new SimpleResponse(true, "La Categoria se elimino correctamente");
 
         } catch (SQLException ex) {
-            respuesta = new SimpleResponse(true, "error");
+            respuesta = new SimpleResponse(true, "no se elimino correctamente la categoria");
         }
         return respuesta;
     }

@@ -4,7 +4,7 @@ $(document).ready(function () {
     obtenerCategoria();
 });
 function  crearCategoria() {
-
+     
     var TipoCategoria = $("#SeleccionTipoCategoria option:selected").text();
     var NombreCategoria = $("input[name=NombreCategoria]").val();
     var Descripcion = $("input[name=Descripcion]").val();
@@ -17,20 +17,9 @@ function  crearCategoria() {
         descripcion: Descripcion,
         usuario_id: UsuarioId},
             function (response) {
-                //alert(response.message);
-                if (response.message === "insert") {
-                    obtenerCategoria();
-                    MostrarMsgAddCategoria();
-                } else if (response.message === "equal") {
-                    obtenerCategoria();
-                    MostrarMsgAlertaCategoria();
-                } else if (response.message === "error") {
-                    obtenerCategoria();
-                    MostrarMsgAlertaCategoria();
-                } else {
-                    obtenerCategoria();
-                    MostrarMsgUpdateCategoria();
-                }
+                alert(response.message);
+                limpiarCategoria();
+                obtenerCategoria();
             });
 
 }
@@ -52,10 +41,10 @@ function obtenerCategoriasEgreso() {
         listaCategoria = $.parseJSON(response.message);
         var html = "<option value='0' selected>--Seleccione Categoria--</option>";
         for (var i = 0; i < listaCategoria.length; i++) {
-            if (listaCategoria[i].tipocategoria === "Egreso") {
+            if (listaCategoria[i].tipocategoria==="Egreso") {
                 html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
             }
-
+            
         }
         $("#seleccionCategoria").html(html);
     });
@@ -106,19 +95,12 @@ function  obtenerCategoria() {
 function eliminarCategoria(id, elemento) {
     $.get("api/controladorcategoria/eliminarcategoria", {
         categoria_id: id}, function (response) {
-        //alert(response.message);
-        if (response.message === "delete") {
-            MostrarMsgDeleteCategoria();
-            $(elemento).parent().parent().remove();
-            obtenerCategoria();
-        } else if (response.message === "error") {
-            MostrarMsgAlertaCategoria();
-        }
+        alert(response.message);
+        $(elemento).parent().parent().remove();
     });
 }
 
 function seleccionarCategoria(id, elemento) {
-    MostrarCategoria();
     var tipocategoria = $(elemento).parent().parent().find("td:eq(1)").html();
     var nombre = $(elemento).parent().parent().find("td:eq(2)").html();
     var descripcion = $(elemento).parent().parent().find("td:eq(3)").html();
@@ -130,93 +112,10 @@ function seleccionarCategoria(id, elemento) {
 
 }
 
-function NuevaCategoria() {
-    ocultarTodoCategoria();
-    limpiarCategoria();
-}
-
-function ocultarTodoCategoria() {
-    $('#msg-AddCategoria').hide();
-    $('#msg-DeleteCategoria').hide();
-    $('#msg-UpdateCategoria').hide();
-    $('#msg-AlertaCategoria').hide();
-}
-
-
-function limpiarCategoria() {
-    idcategoria = 0;
-    $("input[name=NombreCategoria]").val("");
-    $("input[name=Descripcion]").val("");
-    $("#btnCategoria").text("Crear Categoria");
-}
-
-
-/**********************************************/
-// para los mensajes emergentes
-function MostrarMsgAddCategoria() {
-    $(document).ready(function () {
-        $('#msg-AddCategoria').toggle('slow');
-        limpiarCuenta();
-        setTimeout(function () {
-            $("#msg-AddCategoria").fadeOut(1500);
-        }, 3000);
-    });
-}
-
-function MostrarMsgDeleteCategoria() {
-    $(document).ready(function () {
-        $('#msg-DeleteCategoria').toggle('slow');
-        setTimeout(function () {
-            $("#msg-DeleteCategoria").fadeOut(1500);
-        }, 3000);
-    });
-}
-
-function MostrarMsgUpdateCategoria() {
-    $(document).ready(function () {
-        $('#msg-UpdateCategoria').toggle('slow');
-        limpiarCuenta();
-        setTimeout(function () {
-            $("#msg-UpdateCategoria").fadeOut(1500);
-        }, 3000);
-    });
-}
-
-function MostrarMsgAlertaCategoria() {
-    $(document).ready(function () {
-        $('#msg-AlertCategoria').toggle('slow');
-        setTimeout(function () {
-            $("#msg-AlertCategoria").fadeOut(1500);
-        }, 3000);
-    });
-}
-
-function MostrarMsgErrorCategoria() {
-    $(document).ready(function () {
-        $('#msg-ErrorCategoria').toggle('slow');
-        setTimeout(function () {
-            $("#msg-ErrorCategoria").fadeOut(1500);
-        }, 3000);
-    });
-}
-
 function MostrarCategoria() {
-    //$('#msg-MostrarFormulario').show();
-    $('#msg-MostrarFormularioCategoria').toggle('slow');
-    NuevaCategoria()();
+    $('#msg-MostrarFormularioCategoria').show();
 }
 
 function CancelarCategoria() {
-    $('#msg-MostrarFormularioCategoria').toggle('slow');
-    NuevaCategoria();
+    $('#msg-MostrarFormularioCategoria').hide();
 }
-
-
-/*****************************************/
-// jQuery
-$(document).ready(function () {
-    $('#alternar-respuesta-ej2').on('click', function () {
-        $('#msg-MostrarFormularioCategoria').toggle('slow');
-    });
-
-});

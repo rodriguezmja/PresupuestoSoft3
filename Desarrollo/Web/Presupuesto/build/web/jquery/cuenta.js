@@ -76,7 +76,7 @@ function  obtenerCuenta() {
             html += "</div>";
             html += "<div class='card-content'>";
             html += "<div id='InformacionCuenta'>";
-            html += "<p class='category' id='nomcuenta" + listaCuenta[i].id + "' name='nomcuenta' data-cuenta_id='" + listaCuenta[i].id + "'>" + listaCuenta[i].nombre + "</p>";
+            html += "<p class='category' id='nomcuenta" + listaCuenta[i].id + "' name='nomcuenta' data-cuenta_id='"+listaCuenta[i].id+"'>" + listaCuenta[i].nombre + "</p>";
             html += "<h3 id='montocuenta" + listaCuenta[i].id + "' class='title' id='monto'>" + listaCuenta[i].monto + "</h3>";
             html += "</div>";
             html += "</div>";
@@ -84,12 +84,12 @@ function  obtenerCuenta() {
             html += "<div class='stats'>";
             html += "<div class='button-container'>";
             html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>";
-            html += "<i class='material-icons'>edit</i>";
+            html += "<i class='material-icons'>edit</i>";           
             html += "<div class='ripple-container'></div></button>";
             html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCuenta(" + listaCuenta[i].id + ",this)'>";
             html += "<i class='material-icons'>close</i>";
             html += "</button>";
-            html += "<div class='ripple-container'></div></button>";
+             html += "<div class='ripple-container'></div></button>";
             html += "<button id='btnAnadirMontoCuenta' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Ingresar Monto' rel='tooltip' data-toggle='collapse' data-target='#demo' onclick='seleccionarCuentaTransaccion(" + listaCuenta[i].id + ",this)'>";
             html += "<i class='material-icons'>add_circle_outline</i>";
             html += "<div class='ripple-container'></div></button>";
@@ -110,21 +110,21 @@ function obtenerCategoriasCuenta() {
         listaCategoria = $.parseJSON(response.message);
         var html = "<option value='0' selected>--Seleccione Categoria--</option>";
         for (var i = 0; i < listaCategoria.length; i++) {
-            if (listaCategoria[i].tipocategoria === "Ingreso") {
+            if (listaCategoria[i].tipocategoria==="Ingreso") {
                 html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
             }
-
+            
         }
         $("#seleccionCategoria").html(html);
     });
 }
 
-function NuevaCuenta() {
-    ocultarTodoCuenta();
+function NuevaCuenta(){
+    ocultarTodo();
     limpiarCuenta();
 }
 
-function ocultarTodoCuenta() {
+function ocultarTodo(){
     $('#msg-AddCuenta').hide();
     $('#msg-DeleteCuenta').hide();
     $('#msg-UpdateCuenta').hide();
@@ -146,14 +146,14 @@ function eliminarCuenta(id, elemento) {
         if (response.message === "delete")
         {
             MostrarMsgDeleteCuenta();
-            $(elemento).parent().parent().remove();
+            $(elemento).parent().parent().remove(); 
             obtenerCuenta();
         } else if (response.message === "error")
         {
             MostrarMsgAlertaCuenta();
         }
         //$(elemento).parent().parent().remove();
-    });
+    });    
 }
 
 function seleccionarCuenta(id, elemento) {
@@ -170,72 +170,39 @@ function seleccionarCuenta(id, elemento) {
 /**********************************************/
 // para los mensajes emergentes
 function MostrarMsgAddCuenta() {
-    $(document).ready(function () {
-        $('#msg-AddCuenta').toggle('slow');
-        limpiarCuenta();
-        setTimeout(function () {
-            $("#msg-AddCuenta").fadeOut(1500);
-        }, 3000);
-    });
+    $('#msg-AddCuenta').show();
+    $('#msg-DeleteCuenta').hide();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
 }
 
 function MostrarMsgDeleteCuenta() {
-    $(document).ready(function () {
-        $('#msg-DeleteCuenta').toggle('slow');
-        setTimeout(function () {
-            $("#msg-DeleteCuenta").fadeOut(1500);
-        }, 3000);
-    });
+    $('#msg-DeleteCuenta').show();
+    $('#msg-AddCuenta').hide();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
 }
 
 function MostrarMsgUpdateCuenta() {
-    $(document).ready(function () {
-        $('#msg-UpdateCuenta').toggle('slow');
-        limpiarCuenta();
-        setTimeout(function () {
-            $("#msg-UpdateCuenta").fadeOut(1500);
-        }, 3000);
-    });
+    $('#msg-UpdateCuenta').show();
+    $('#msg-AddCuenta').hide();
+    $('#msg-DeleteCuenta').hide();
+    $('#msg-AlertaCuenta').hide();
 }
 
 function MostrarMsgAlertaCuenta() {
-    $(document).ready(function () {
-        $('#msg-AlertCuenta').toggle('slow');
-        setTimeout(function () {
-            $("#msg-AlertCuenta").fadeOut(1500);
-        }, 3000);
-    });
-}
-
-function MostrarMsgErrorCuenta() {
-    $(document).ready(function () {
-        $('#msg-ErrorCuenta').toggle('slow');
-        setTimeout(function () {
-            $("#msg-ErrorCuenta").fadeOut(1500);
-        }, 3000);
-    });
+    $('#msg-AlertaCuenta').show();
+    $('#msg-UpdateCuenta').hide();
+    $('#msg-AddCuenta').hide();
+    $('#msg-DeleteCuenta').hide();
 }
 
 function MostrarCuenta() {
-    //$('#msg-MostrarFormulario').show();
-    $('#msg-MostrarFormulario').toggle('slow');
+    $('#msg-MostrarFormulario').show();  
     NuevaCuenta();
 }
 
 function CancelarCuenta() {
-    $('#msg-MostrarFormulario').toggle('slow');
+    $('#msg-MostrarFormulario').hide();
     NuevaCuenta();
 }
-
-
-/*****************************************/
-// jQuery
-$(document).ready(function () {
-    $('#alternar-respuesta-ej1').on('click', function () {
-        $('#msg-MostrarFormulario').toggle('slow');
-    });
-
-});
-
-
-
