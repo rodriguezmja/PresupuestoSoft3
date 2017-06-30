@@ -159,14 +159,14 @@
                                                 <div id="msg-AlertCuenta" class="alert alert-warning" role="alert" style="display: none">El nombre de la cuenta ya existe...</div>
                                                 
                                                 <div class="col-md-3">
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group is-empty">
                                                         <label for="NombreCuenta" class="control-label">Nombre Cuenta</label>
                                                         <input class="form-control" type="text" id="inputnombrecuenta" name="NombreCuenta" required="required"/>
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group is-empty">
                                                         <label for="Monto" class="control-label">Monto</label>
                                                         <input class="form-control" type="number" id="monto" name="Monto"  required="required"/>
                                                         <span class="material-input"></span>
@@ -216,6 +216,12 @@
                                 <div id="demo" class="collapse">
                             <div class="row">
                                 <div class="col-sm-5 form-group">
+                                    <label class="control-label" for="TipoCat">Añadir Nuevo monto</label>
+                                    <select class="form-control" id="seleccionCategoria" name="TipoCat" required autofocus />
+                                        <option value='0' selected>--Seleccione Categoria--</option>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                    </select>
                                     <label class="control-label" for="MontoTransaccion">Añadir Nuevo monto</label>
                                     <input class="form-control" type="number" id="montoNuevo" name="MontoTransaccion" step="0.01" required autofocus />
                                     <label class="control-label" for="Concepto">Por Concepto:</label>
@@ -239,7 +245,7 @@
                                         <div id="msg-MostrarFormularioCategoria" class="msg-MostrarForm" style="display: none">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group is-empty">
                                                         <label for="NombreCategoria" class="control-label">Nombre Categoria</label>
                                                         <input class="form-control" type="text" id="inputnombrecategoria" name="NombreCategoria" required="required"/>
                                                         <span class="material-input"></span>
@@ -247,7 +253,7 @@
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group is-empty">
                                                         <label for="Descripcion" class="control-label">Descripcion</label>
                                                         <input class="form-control" type="text" id="descripcion" name="Descripcion"  required="required"/>
                                                         <span class="material-input"></span>
@@ -269,12 +275,14 @@
                                                         <table class="table table-hover">
                                                             <thead class="text-warning">
                                                                 <tr><th>ID</th>
+                                                                    <th>Tipo</th>
                                                                     <th>Nombre</th>
                                                                     <th>Descripcion</th>
                                                                 </tr></thead>
                                                             <tbody id="filacat">
                                                                 <tr>
                                                                     <td>1</td>
+                                                                    <td>tipo</td>
                                                                     <td>2papa</td>
                                                                     <td>cosa</td>
                                                                     <td class="td-actions text-right">

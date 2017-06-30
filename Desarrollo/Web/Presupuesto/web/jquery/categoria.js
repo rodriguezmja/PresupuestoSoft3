@@ -4,12 +4,14 @@ $(document).ready(function () {
     obtenerCategoria();
 });
 function  crearCategoria() {
+    var TipoCategoria = $("");
     var NombreCategoria = $("input[name=NombreCategoria]").val();
     var Descripcion = $("input[name=Descripcion]").val();
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
 
     $.get("api/controladorcategoria/crearcategoria", {
         idcategoria: idcategoria,
+        tipocategoria: TipoCategoria,
         nombrecategoria: NombreCategoria,
         descripcion: Descripcion,
         usuario_id: UsuarioId},
@@ -23,6 +25,7 @@ function  crearCategoria() {
 
 function limpiarCategoria() {
     idcategoria = 0;
+    $("");
     $("input[name=NombreCategoria]").val("");
     $("input[name=Descripcion]").val("");
     $("#btnCategoria").text("Crear Categoria");
@@ -38,6 +41,7 @@ function  obtenerCategoria() {
         var html = "<td class='1'></td>";
         var html = "<td class='2'></td>";
         var html = "<td class='3'></td>";
+        var html = "<td class='4'></td>";
         var html = "<td class='td-actions text-right'>";
         var html = "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip'>";
         var html = "<i class='material-icons'>edit</i>";
@@ -52,8 +56,9 @@ function  obtenerCategoria() {
         for (var i = 0; i < listaCategoria.length; i++) {
             html += "<tr>";
             html += "<td id='1'>" + listaCategoria[i].id + "</td>";
-            html += "<td id='2'>" + listaCategoria[i].nombre + "</td>";
-            html += "<td id='3'>" + listaCategoria[i].descripcion + "</td>";
+            html += "<td id='2'>" + listaCategoria[i].tipocategoria + "</td>";
+            html += "<td id='3'>" + listaCategoria[i].nombre + "</td>";
+            html += "<td id='4'>" + listaCategoria[i].descripcion + "</td>";
             html += "<td class='td-actions text-right'>";
             html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCategoria(" + listaCategoria[i].id + ",this)'>";
             html += "<i class='material-icons'>edit</i>";
@@ -78,10 +83,12 @@ function eliminarCategoria(id, elemento) {
 }
 
 function seleccionarCategoria(id, elemento) {
-    var nombre = $(elemento).parent().parent().find("td:eq(1)").html();
-    var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
+    var tipocategoria = $(elemento).parent().parent().find("td:eq(1)").html();
+    var nombre = $(elemento).parent().parent().find("td:eq(2)").html();
+    var descripcion = $(elemento).parent().parent().find("td:eq(3)").html();
     $("#btnCategoria").text("Modificar Categoria");
     idcategoria = id;
+    $("").val(tipocategoria);
     $("input[name=NombreCategoria]").val(nombre);
     $("input[name=Descripcion]").val(descripcion);
 

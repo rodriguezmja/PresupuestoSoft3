@@ -2,6 +2,7 @@ var idcuenta = 0;
 
 $(document).ready(function () {
     obtenerCuenta();
+    obtenerCategoriasCuenta();
 });
 function  crearCuenta() {
     var NombreCuenta = $("input[name=NombreCuenta]").val();
@@ -99,6 +100,19 @@ function  obtenerCuenta() {
             html += "</div>";
         }
         $("#mostrarCuentas").html(html);
+    });
+}
+
+function obtenerCategoriasCuenta() {
+    var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    $.get("api/controladorcategoria/obtenercategoria", {
+        usuario_id: UsuarioId}, function (response) {
+        listaCategoria = $.parseJSON(response.message);
+        var html = "<option value='0' selected>--Seleccione Categoria--</option>";
+        for (var i = 0; i < listaCategoria.length; i++) {
+            html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
+        }
+        $("#seleccionCategoria").html(html);
     });
 }
 
