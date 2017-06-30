@@ -119,12 +119,12 @@ function obtenerCategoriasCuenta() {
     });
 }
 
-function NuevaCuenta(){
-    ocultarTodo();
+function NuevaCuenta() {
+    ocultarTodoCuenta();
     limpiarCuenta();
 }
 
-function ocultarTodo(){
+function ocultarTodoCuenta() {
     $('#msg-AddCuenta').hide();
     $('#msg-DeleteCuenta').hide();
     $('#msg-UpdateCuenta').hide();
@@ -146,14 +146,14 @@ function eliminarCuenta(id, elemento) {
         if (response.message === "delete")
         {
             MostrarMsgDeleteCuenta();
-            $(elemento).parent().parent().remove(); 
+            $(elemento).parent().parent().remove();
             obtenerCuenta();
         } else if (response.message === "error")
         {
             MostrarMsgAlertaCuenta();
         }
         //$(elemento).parent().parent().remove();
-    });    
+    });
 }
 
 function seleccionarCuenta(id, elemento) {
@@ -170,39 +170,74 @@ function seleccionarCuenta(id, elemento) {
 /**********************************************/
 // para los mensajes emergentes
 function MostrarMsgAddCuenta() {
+    $(document).ready(function () {
     $('#msg-AddCuenta').show();
-    $('#msg-DeleteCuenta').hide();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+        $('#msg-AddCuenta').toggle('slow');
+        limpiarCuenta();
+        setTimeout(function () {
+            $("#msg-AddCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgDeleteCuenta() {
-    $('#msg-DeleteCuenta').show();
-    $('#msg-AddCuenta').hide();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+    $(document).ready(function () {
+        $('#msg-DeleteCuenta').toggle('slow');
+        setTimeout(function () {
+            $("#msg-DeleteCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgUpdateCuenta() {
+    $(document).ready(function () {
     $('#msg-UpdateCuenta').show();
-    $('#msg-AddCuenta').hide();
-    $('#msg-DeleteCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+        $('#msg-UpdateCuenta').toggle('slow');
+        limpiarCuenta();
+        setTimeout(function () {
+            $("#msg-UpdateCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgAlertaCuenta() {
-    $('#msg-AlertaCuenta').show();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AddCuenta').hide();
-    $('#msg-DeleteCuenta').hide();
+    $(document).ready(function () {
+        $('#msg-AlertCuenta').toggle('slow');
+        setTimeout(function () {
+            $("#msg-AlertCuenta").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgErrorCuenta() {
+    $(document).ready(function () {
+        $('#msg-ErrorCuenta').toggle('slow');
+        setTimeout(function () {
+            $("#msg-ErrorCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarCuenta() {
-    $('#msg-MostrarFormulario').show();  
+    //$('#msg-MostrarFormulario').show();
+    $('#msg-MostrarFormulario').toggle('slow');
     NuevaCuenta();
 }
 
 function CancelarCuenta() {
-    $('#msg-MostrarFormulario').hide();
+    $('#msg-MostrarFormulario').toggle('slow');
     NuevaCuenta();
 }
+
+
+/*****************************************/
+// jQuery
+$(document).ready(function () {
+    $('#alternar-respuesta-ej1').on('click', function () {
+        $('#msg-MostrarFormulario').toggle('slow');
+    });
+
+});
+
+
+
