@@ -76,7 +76,7 @@ function  obtenerCuenta() {
             html += "</div>";
             html += "<div class='card-content'>";
             html += "<div id='InformacionCuenta'>";
-            html += "<p class='category' id='nomcuenta" + listaCuenta[i].id + "' name='nomcuenta' data-cuenta_id='"+listaCuenta[i].id+"'>" + listaCuenta[i].nombre + "</p>";
+            html += "<p class='category' id='nomcuenta" + listaCuenta[i].id + "' name='nomcuenta' data-cuenta_id='" + listaCuenta[i].id + "'>" + listaCuenta[i].nombre + "</p>";
             html += "<h3 id='montocuenta" + listaCuenta[i].id + "' class='title' id='monto'>" + listaCuenta[i].monto + "</h3>";
             html += "</div>";
             html += "</div>";
@@ -84,12 +84,12 @@ function  obtenerCuenta() {
             html += "<div class='stats'>";
             html += "<div class='button-container'>";
             html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCuenta(" + listaCuenta[i].id + ",this)'>";
-            html += "<i class='material-icons'>edit</i>";           
+            html += "<i class='material-icons'>edit</i>";
             html += "<div class='ripple-container'></div></button>";
             html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCuenta(" + listaCuenta[i].id + ",this)'>";
             html += "<i class='material-icons'>close</i>";
             html += "</button>";
-             html += "<div class='ripple-container'></div></button>";
+            html += "<div class='ripple-container'></div></button>";
             html += "<button id='btnAnadirMontoCuenta' title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Ingresar Monto' rel='tooltip' data-toggle='collapse' data-target='#demo' onclick='seleccionarCuentaTransaccion(" + listaCuenta[i].id + ",this)'>";
             html += "<i class='material-icons'>add_circle_outline</i>";
             html += "<div class='ripple-container'></div></button>";
