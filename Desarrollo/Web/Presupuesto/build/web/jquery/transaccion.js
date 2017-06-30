@@ -1,5 +1,12 @@
 var idtransaccion = 0;
 var CuentaId = 0;
+var f = new Date();
+    var dia = f.getDate();
+    var mes = f.getMonth() + 1;
+    var ano = f.getFullYear();
+    dia = dia < 10 ? "0" + dia : dia;
+    mes = mes < 10 ? "0" + mes : mes;
+    var fechahoy = dia + "/" + mes + "/" + ano;
 //var cuenta_id = 0;
 
 $(document).ready(function () {
@@ -77,22 +84,23 @@ function  crearTransaccionEgreso() {
     var MontoTransaccion = $("input[name=MontoTransaccion]").val();
     var ConceptoTransaccion = $("input[name=Concepto]").val();
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
-    var CuentaIdDestino = "";
+    //var CuentaIdDestino = "";
     var CategoriaId = $("input[name=CategoriaId]").val();
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
+        fecha: fechahoy,
         tipotransaccion: TipoTransaccion,
         montotransaccion: MontoTransaccion,
         conceptotransaccion: ConceptoTransaccion,
         usuario_id: UsuarioId,
         cuenta_id: CuentaId,
-        cuenta_id_destino: CuentaIdDestino,
+        cuenta_id_destino: CuentaId,
         categoria_id: CategoriaId},
             function (response) {
                 alert(response.message);
                 limpiarTransaccion();
-//                obtenerCategoria();
+                obtenerCuentaTransaccion();
             });
 
 }
@@ -104,10 +112,11 @@ function  crearTransaccionIngreso() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
     //var CuentaId = $("#nomcuenta").data("cuenta_id");
     //var CuentaIdDestino = "";
-    var CategoriaId = 12;
+    var CategoriaId = document.getElementById("seleccionCategoria").value;
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
+        fecha: fechahoy,
         tipotransaccion: TipoTransaccion,
         montotransaccion: MontoTransaccion,
         conceptotransaccion: ConceptoTransaccion,
@@ -156,6 +165,7 @@ function eliminarTransaccion(id, elemento) {
 function seleccionarCuentaTransaccion(id, elemento) {
     var nomcuenta = $("#nomcuenta"+id).text();
     var montocuenta = $("#montocuenta"+id).text();
+    $("#NombreCuentaForm").text("Ingreso para la Cuenta: "+nomcuenta);
     //var nombre = $(elemento).parent().parent().parent().parent().find("p:eq(1)").html();
    // var descripcion = $(elemento).parent().parent().find("td:eq(2)").html();
     //$("#btnCuenta").text("Modificar Cuenta");
