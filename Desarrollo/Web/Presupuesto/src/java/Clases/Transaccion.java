@@ -15,23 +15,23 @@ import java.util.List;
  * @author rodriguezja
  */
 public class Transaccion {
-    
+
     private int transaccion_id;
     private String fecha; //fecha del sistema
     private String tipo; //ingreso, egreso Traspaso
     private double monto;
-    private String concepto; 
+    private String concepto;
     private int user_id;
     private int cuentaOrigen;
     private int cuentaDestino;
     private int categoria;
     //private SubCategoria subCategoria;
-    
+
     private Conn con;
 
     public Transaccion() {
     }
-    
+
     public Transaccion(Conn con) {
         this.con = con;
     }
@@ -47,7 +47,7 @@ public class Transaccion {
         this.cuentaDestino = cuentaDestino;
         this.categoria = categoria;
     }
-    
+
     public List<Transaccion> cargar(ResultSet rs) {
         List<Transaccion> lista = new ArrayList();
         try {
@@ -62,7 +62,7 @@ public class Transaccion {
                 aux.setCuentaOrigen(rs.getInt("cuenta_id"));
                 aux.setCuentaDestino(rs.getInt("cuenta_id_destino"));
                 aux.setCategoria(rs.getInt("categoria_id"));
-               
+
                 lista.add(aux);
             }
         } catch (SQLException ex) {
@@ -95,7 +95,7 @@ public class Transaccion {
     }
 
     public List<Transaccion> buscarxCuenta(int idcuenta) throws SQLException {
-        String consulta = "select * from Transaccion where cuenta_id='"+ idcuenta +"'"; 
+        String consulta = "select * from Transaccion where cuenta_id='" + idcuenta + "'";
         ResultSet rs = con.consultar(consulta);
         List<Transaccion> lis = cargar(rs);
 //        if (lis.size() > 0) {
@@ -103,9 +103,9 @@ public class Transaccion {
 //        }
         return lis;
     }
-    
+
     public List<Transaccion> buscarxCategoria(int idcategoria) throws SQLException {
-        String consulta = "select * from Transaccion where categoria_id='"+ idcategoria +"'"; 
+        String consulta = "select * from Transaccion where categoria_id='" + idcategoria + "'";
         ResultSet rs = con.consultar(consulta);
         List<Transaccion> lis = cargar(rs);
 //        if (lis.size() > 0) {
@@ -113,38 +113,64 @@ public class Transaccion {
 //        }
         return lis;
     }
-    
+
     public List<Transaccion> buscarxUsuario(int idusuario) throws SQLException {
-        String consulta = "select * from Transaccion where user_id='"+ idusuario +"'"; 
+        String consulta = "select * from Transaccion where user_id='" + idusuario + "'";
         ResultSet rs = con.consultar(consulta);
         List<Transaccion> lis = cargar(rs);
 //        if (lis.size() > 0) {
 //            return lis.get(0);
 //        }
         return lis;
+    }
+
+    public String buscarReporteDiario(int idusuario, String fecha, String tipo) throws SQLException {
+        String consulta = "select t.transaccion_id,t.fecha,t.tipo,t.monto,t.detalle,u.nombrecompleto,cu.nombre as nombreCuenta,ca.nombre as nombreCategoria\n"
+                + "  from transaccion t, usuario u, cuenta cu, categoria ca\n"
+                + "  where  t.user_id=u.user_id and\n"
+                + "		t.cuenta_id=cu.cuenta_id and\n"
+                + "		t.categoria_id = ca.categoria_id and \n"
+                + "		t.user_id = "+idusuario+" and\n"
+                + "		t.fecha = '"+fecha+"' and\n"
+                + "		t.tipo = '"+tipo+"'";
+        
+        ResultSet rs = con.consultar(consulta);
+        String respuesta = "[";
+        while (rs.next()) {
+            respuesta += "{\"id\":\"" + rs.getInt("transaccion_id")
+                    + "\",\"fecha\":\"" + rs.getString("fecha")
+                    + "\",\"tipo\":\"" + rs.getString("tipo")
+                    + "\",\"monto\":\"" + rs.getString("monto")
+                    + "\",\"detalle\":\"" + rs.getString("detalle")
+                    + "\",\"nombreUsuario\":\"" + rs.getString("nombrecompleto")
+                    + "\",\"cuenta\":\"" + rs.getString("nombreCuenta")
+                    + "\",\"categoria\":\"" + rs.getString("nombreCategoria") + "\"},";
+        }
+        if (respuesta.length() > 2) {
+            respuesta = respuesta.substring(0, respuesta.length() - 1);
+        }
+        respuesta += "]";
+        return respuesta;
     }
 
     public void modificar(int idtransaccion) throws SQLException {
         String consulta = "update Transaccion set fecha = '" + fecha + "', tipo = '" + tipo + "', monto = '" + monto + "', detalle = '" + concepto + "', user_id = '" + user_id + "' , cuenta_id = '" + cuentaOrigen + "', cuenta_id_destino = '" + cuentaDestino + "', categoria_id = '" + categoria + "' where transaccion_id=" + transaccion_id;
         con.manipular(consulta);
     }
-    
+
 //    public void modificarName(int idcuenta) throws SQLException {
 //        String consulta = "update Cuenta set cuenta_id = " + cuenta_id + ", nombre = '" + nombre + "', user_id = '" + user_id + "' where cuenta_id=" + cuenta_id;
 //        con.manipular(consulta);
 //    }
-
-    public void insertar() throws SQLException {     
-        String consulta = "insert into presupuesto.dbo.Transaccion(fecha, tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('"+ fecha + "','"+ tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
-        con.manipular(consulta);     
+    public void insertar() throws SQLException {
+        String consulta = "insert into presupuesto.dbo.Transaccion(fecha, tipo, monto, detalle, user_id, cuenta_id, cuenta_id_destino, categoria_id) values('" + fecha + "','" + tipo + "','" + monto + "','" + concepto + "','" + user_id + "','" + cuentaOrigen + "','" + cuentaDestino + "','" + categoria + "')";
+        con.manipular(consulta);
     }
-    
+
     public void eliminar(int id) throws SQLException {
         String consulta = "delete from transaccion where transaccion_id=" + id;
         con.manipular(consulta);
     }
-    
-    
 
     public int getTransaccion_id() {
         return transaccion_id;
@@ -193,7 +219,7 @@ public class Transaccion {
     public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
-    
+
     public Conn getCon() {
         return con;
     }
@@ -201,6 +227,7 @@ public class Transaccion {
     public void setCon(Conn con) {
         this.con = con;
     }
+
     public int getUser_id() {
         return user_id;
     }
@@ -224,5 +251,5 @@ public class Transaccion {
 //        this.subCategoria = subCategoria;
 //////    }
 //    
-    
+
 }
