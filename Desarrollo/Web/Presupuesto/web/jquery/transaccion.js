@@ -1,5 +1,12 @@
 var idtransaccion = 0;
 var CuentaId = 0;
+var f = new Date();
+    var dia = f.getDate();
+    var mes = f.getMonth() + 1;
+    var ano = f.getFullYear();
+    dia = dia < 10 ? "0" + dia : dia;
+    mes = mes < 10 ? "0" + mes : mes;
+    var fechahoy = dia + "/" + mes + "/" + ano;
 //var cuenta_id = 0;
 
 $(document).ready(function () {
@@ -77,22 +84,23 @@ function  crearTransaccionEgreso() {
     var MontoTransaccion = $("input[name=MontoTransaccion]").val();
     var ConceptoTransaccion = $("input[name=Concepto]").val();
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
-    var CuentaIdDestino = "";
+    //var CuentaIdDestino = "";
     var CategoriaId = $("input[name=CategoriaId]").val();
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
+        fecha: fechahoy,
         tipotransaccion: TipoTransaccion,
         montotransaccion: MontoTransaccion,
         conceptotransaccion: ConceptoTransaccion,
         usuario_id: UsuarioId,
         cuenta_id: CuentaId,
-        cuenta_id_destino: CuentaIdDestino,
+        cuenta_id_destino: CuentaId,
         categoria_id: CategoriaId},
             function (response) {
                 alert(response.message);
                 limpiarTransaccion();
-//                obtenerCategoria();
+                obtenerCuentaTransaccion();
             });
 
 }
@@ -108,6 +116,7 @@ function  crearTransaccionIngreso() {
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
+        fecha: fechahoy,
         tipotransaccion: TipoTransaccion,
         montotransaccion: MontoTransaccion,
         conceptotransaccion: ConceptoTransaccion,
