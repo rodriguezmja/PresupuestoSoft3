@@ -83,6 +83,7 @@ function  obtenerCuentaTransaccion() {
 
 function  obtenerTransacciones() {
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    
     $.get("api/controladortransaccion/obtenertransaccion", {
         usuario_id: UsuarioId}, function (response) {
         listaTransaccion = $.parseJSON(response.message);
@@ -154,6 +155,19 @@ function  crearTransaccionEgreso() {
                 limpiarTransaccion();
                 obtenerCuentaTransaccion();
                 obtenerTransacciones();
+//                if (response.message === "insert") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAddTransaccion();
+//                } else if (response.message === "equal") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else if (response.message === "error") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else {
+//                    obtenerTransacciones();
+//                    MostrarMsgUpdateTransaccion();
+//                }
             });
 
 }
@@ -182,6 +196,19 @@ function  crearTransaccionIngreso() {
                 alert(response.message);
                 limpiarTransaccion();
                 obtenerCuentaTransaccion();
+//                if (response.message === "insert") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAddTransaccion();
+//                } else if (response.message === "equal") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else if (response.message === "error") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else {
+//                    obtenerTransacciones();
+//                    MostrarMsgUpdateTransaccion();
+//                }
             });
 
 }
@@ -248,9 +275,75 @@ function seleccionarCuentaTransaccion(id, elemento) {
 
 function MostrarFomularioGastos() {
     $('#msg-MostrarFormularioGastos').show();
-    obtenerTransacciones();
+
 }
 
 function CancelarTransaccion() {
     $('#msg-MostrarFormularioGastos').hide();
 }
+
+/**********************************************/
+// para los mensajes emergentes
+function MostrarMsgAddTransaccion() {
+    $('#msg-AddTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AddTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgDeleteTransaccion() {
+    $('#msg-DeleteTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-DeleteTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgUpdateTransaccion() {
+    $('#msg-UpdateTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-UpdateTransacion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgAlertaTransaccion() {
+    $('#msg-AlertTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AlertTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgErrorTransaccion() {
+    $('#msg-ErrorTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-ErrorTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+
+function MostrarTransaccion() {
+    $('#msg-MostrarFormularioGastos').toggle('slow');
+    NuevaTransaccion();
+}
+
+function CancelarTransaccion() {
+    $('#msg-MostrarFormularioGastos').toggle('slow');
+    NuevaTransaccion();
+}
+
+/****************************************************************/
+// jQuery
+$(document).ready(function () {
+    $('#alternar-respuesta-ej3').on('click', function () {
+        $('#msg-MostrarFormularioGastos').toggle('slow');
+    });
+});
