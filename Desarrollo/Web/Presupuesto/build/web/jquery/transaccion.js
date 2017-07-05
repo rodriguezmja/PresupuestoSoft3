@@ -1,5 +1,5 @@
-var idtransaccion = 0;
-var CuentaId = 0;
+var idtransaccion;
+var CuentaId;
 var f = new Date();
     var dia = f.getDate();
     var mes = f.getMonth() + 1;
@@ -10,7 +10,9 @@ var f = new Date();
 //var cuenta_id = 0;
 
 $(document).ready(function () {
-    
+    cargarCuentasTransaccion();
+    obtenerTransacciones();
+    cargarCategoriasTransaccion();
 });
 
 function  obtenerCuentaTransaccion() {
@@ -79,13 +81,64 @@ function  obtenerCuentaTransaccion() {
     });
 }
 
+function  obtenerTransacciones() {
+    var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    
+    $.get("api/controladortransaccion/obtenertransaccion", {
+        usuario_id: UsuarioId}, function (response) {
+        listaTransaccion = $.parseJSON(response.message);
+        var html = "<tr>";
+        var html = "<td class='1'></td>";
+        var html = "<td class='2'></td>";
+        var html = "<td class='3'></td>";
+        var html = "<td class='4'></td>";
+        var html = "<td class='5'></td>";
+        var html = "<td class='6'></td>";
+        var html = "<td class='7'></td>";
+        var html = "<td class='8'></td>";
+        var html = "<td class='td-actions text-right'>";
+        var html = "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip'>";
+        var html = "<i class='material-icons'>edit</i>";
+        var html = "<div class='ripple-container'></div></button>";
+        var html = "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip'>";
+        var html = "<i class='material-icons'>close</i>";
+        var html = "</button>";
+        var html = "</td>";
+        var html = "</tr>";
+
+
+        for (var i = 0; i < listaTransaccion.length; i++) {
+            html += "<tr>";
+            html += "<td id='a'>" + listaTransaccion[i].id + "</td>";
+            html += "<td id='b'>" + listaTransaccion[i].fecha + "</td>";
+            html += "<td id='c'>" + listaTransaccion[i].tipo + "</td>";
+            html += "<td id='d'>" + listaTransaccion[i].monto + "</td>";
+            html += "<td id='e'>" + listaTransaccion[i].detalle + "</td>";
+            html += "<td id='f'>" + listaTransaccion[i].cuenta_id + "</td>";
+            html += "<td id='g'>" + listaTransaccion[i].cuenta_id_destino + "</td>";
+            html += "<td id='h'>" + listaTransaccion[i].categoria_id + "</td>";
+            html += "<td class='td-actions text-right'>";
+            html += "<button title='' class='btn btn-primary btn-simple btn-xs' type='button' data-original-title='Edit Task' rel='tooltip' onclick='seleccionarCategoria(" + listaTransaccion[i].id + ",this)'>";
+            html += "<i class='material-icons'>edit</i>";
+            html += "<div class='ripple-container'></div></button>";
+            html += "<button title='' class='btn btn-danger btn-simple btn-xs' type='button' data-original-title='Remove' rel='tooltip' onclick='eliminarCategoria(" + listaTransaccion[i].id + ",this)'>";
+            html += "<i class='material-icons'>close</i>";
+            html += "</button>";
+            html += "</td>";
+
+            html += "</tr>";
+        }
+        $("#filaTransacciones").html(html);
+    });
+}
+
 function  crearTransaccionEgreso() {
     var TipoTransaccion = "Egreso";
-    var MontoTransaccion = $("input[name=MontoTransaccion]").val();
-    var ConceptoTransaccion = $("input[name=Concepto]").val();
+    var MontoTransaccion = $("input[name=MontoGasto]").val();
+    var ConceptoTransaccion = $("input[name=ConceptoGasto]").val();
     var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
-    //var CuentaIdDestino = "";
-    var CategoriaId = $("input[name=CategoriaId]").val();
+    var CuentaIdTransaccion = $("#cuentaGasto option:selected").val();
+    var CategoriaIdTransaccion = $("#categoriaGasto option:selected").val();
 
     $.get("api/controladortransaccion/creartransaccion", {
         idtransaccion: idtransaccion,
@@ -93,19 +146,34 @@ function  crearTransaccionEgreso() {
         tipotransaccion: TipoTransaccion,
         montotransaccion: MontoTransaccion,
         conceptotransaccion: ConceptoTransaccion,
-        usuario_id: UsuarioId,
-        cuenta_id: CuentaId,
-        cuenta_id_destino: CuentaId,
-        categoria_id: CategoriaId},
+        user_id: UsuarioId,
+        cuenta_id: CuentaIdTransaccion,
+        cuenta_id_destino: CuentaIdTransaccion,
+        categoria_id: CategoriaIdTransaccion},
             function (response) {
                 alert(response.message);
                 limpiarTransaccion();
                 obtenerCuentaTransaccion();
+                obtenerTransacciones();
+//                if (response.message === "insert") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAddTransaccion();
+//                } else if (response.message === "equal") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else if (response.message === "error") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else {
+//                    obtenerTransacciones();
+//                    MostrarMsgUpdateTransaccion();
+//                }
             });
 
 }
 
 function  crearTransaccionIngreso() {
+    
     var TipoTransaccion = "Ingreso";
     var MontoTransaccion = $("input[name=MontoTransaccion]").val();
     var ConceptoTransaccion = $("input[name=Concepto]").val();
@@ -128,18 +196,48 @@ function  crearTransaccionIngreso() {
                 alert(response.message);
                 limpiarTransaccion();
                 obtenerCuentaTransaccion();
+//                if (response.message === "insert") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAddTransaccion();
+//                } else if (response.message === "equal") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else if (response.message === "error") {
+//                    obtenerTransacciones();
+//                    MostrarMsgAlertaTransaccion();
+//                } else {
+//                    obtenerTransacciones();
+//                    MostrarMsgUpdateTransaccion();
+//                }
             });
 
 }
 
-function obtenerTipoProductos() {
-    $.get("api/controladorTipoProducto/obtenerTipoProducto", {}, function (response) {
-        listaTipoProductos = $.parseJSON(response.message);
-        var html = "<option value='0' selected>--Seleccione Tipo Producto--</option>";
-        for (var i = 0; i < listaTipoProductos.length; i++) {
-            html += "<option value='" + listaTipoProductos[i].id + "'>" + listaTipoProductos[i].descripcion + "</option>";
+function cargarCuentasTransaccion() {
+    var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    $.get("api/controladorcuenta/obtenercuenta", {
+        usuario_id: UsuarioId}, function (response) {
+        listaCuenta = $.parseJSON(response.message);
+        var html = "<option value='0' selected>--Seleccione Cuenta--</option>";
+        for (var i = 0; i < listaCuenta.length; i++) {
+                html += "<option value='" + listaCuenta[i].id + "'>" + listaCuenta[i].nombre + "</option>";            
         }
-        $("#ObtenerTipoProducto").html(html);
+        $("#cuentaGasto").html(html);
+    });
+}
+
+function cargarCategoriasTransaccion() {
+    var UsuarioId = localStorage.getItem("Usuario").split(",")[0];
+    $.get("api/controladorcategoria/obtenercategoria", {
+        usuario_id: UsuarioId}, function (response) {
+        listaCategoria = $.parseJSON(response.message);
+        var html = "<option value='0' selected>--Seleccione Categoria--</option>";
+        for (var i = 0; i < listaCategoria.length; i++) {
+           
+                html += "<option value='" + listaCategoria[i].id + "'>" + listaCategoria[i].nombre + "</option>";
+                       
+        }
+        $("#categoriaGasto").html(html);
     });
 }
 
@@ -174,3 +272,78 @@ function seleccionarCuentaTransaccion(id, elemento) {
     //$("input[name=Monto]").val(montocuenta);
     
 }
+
+function MostrarFomularioGastos() {
+    $('#msg-MostrarFormularioGastos').show();
+
+}
+
+function CancelarTransaccion() {
+    $('#msg-MostrarFormularioGastos').hide();
+}
+
+/**********************************************/
+// para los mensajes emergentes
+function MostrarMsgAddTransaccion() {
+    $('#msg-AddTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AddTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgDeleteTransaccion() {
+    $('#msg-DeleteTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-DeleteTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgUpdateTransaccion() {
+    $('#msg-UpdateTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-UpdateTransacion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgAlertaTransaccion() {
+    $('#msg-AlertTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AlertTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgErrorTransaccion() {
+    $('#msg-ErrorTransaccion').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-ErrorTransaccion").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+
+function MostrarTransaccion() {
+    $('#msg-MostrarFormularioGastos').toggle('slow');
+    NuevaTransaccion();
+}
+
+function CancelarTransaccion() {
+    $('#msg-MostrarFormularioGastos').toggle('slow');
+    NuevaTransaccion();
+}
+
+/****************************************************************/
+// jQuery
+$(document).ready(function () {
+    $('#alternar-respuesta-ej3').on('click', function () {
+        $('#msg-MostrarFormularioGastos').toggle('slow');
+    });
+});

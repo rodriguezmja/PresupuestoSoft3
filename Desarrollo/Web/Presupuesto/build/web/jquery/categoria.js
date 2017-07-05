@@ -17,9 +17,19 @@ function  crearCategoria() {
         descripcion: Descripcion,
         usuario_id: UsuarioId},
             function (response) {
-                alert(response.message);
-                limpiarCategoria();
-                obtenerCategoria();
+                if (response.message === "insert") {
+                    obtenerCategoria();
+                    MostrarMsgAddCategoria();
+                } else if (response.message === "equal") {
+                    obtenerCategoria();
+                    MostrarMsgAlertaCategoria();
+                } else if (response.message === "error") {
+                    obtenerCategoria();
+                    MostrarMsgAlertaCategoria();
+                } else {
+                    obtenerCategoria();
+                    MostrarMsgUpdateCategoria();
+                }
             });
 
 }
@@ -95,8 +105,13 @@ function  obtenerCategoria() {
 function eliminarCategoria(id, elemento) {
     $.get("api/controladorcategoria/eliminarcategoria", {
         categoria_id: id}, function (response) {
-        alert(response.message);
-        $(elemento).parent().parent().remove();
+        if (response.message === "delete") {
+            MostrarMsgDeleteCategoria();
+            $(elemento).parent().parent().remove();
+            obtenerCategoria();
+        } else if (response.message === "error") {
+            MostrarMsgAlertaCategoria()();
+        }
     });
 }
 
@@ -112,10 +127,68 @@ function seleccionarCategoria(id, elemento) {
 
 }
 
+/**********************************************/
+// para los mensajes emergentes
+function MostrarMsgAddCategoria() {
+    $('#msg-AddCategoria').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AddCategoria").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgDeleteCategoria() {
+    $('#msg-DeleteCategoria').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-DeleteCategoria").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgUpdateCategoria() {
+    $('#msg-UpdateCategoria').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-UpdateCategoria").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgAlertaCategoria() {
+    $('#msg-AlertCategoria').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AlertCategoria").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+function MostrarMsgErrorCategoria() {
+    $('#msg-ErrorCategoria').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-ErrorCategoria").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+
 function MostrarCategoria() {
-    $('#msg-MostrarFormularioCategoria').show();
+    $('#msg-MostrarFormularioCategoria').toggle('slow');
+    NuevaCategoria();
 }
 
 function CancelarCategoria() {
-    $('#msg-MostrarFormularioCategoria').hide();
+    $('#msg-MostrarFormularioCategoria').toggle('slow');
+    NuevaCategoria();
 }
+
+/****************************************************************/
+// jQuery
+$(document).ready(function () {
+    $('#alternar-respuesta-ej2').on('click', function () {
+        $('#msg-MostrarFormularioCategoria').toggle('slow');
+    });
+});

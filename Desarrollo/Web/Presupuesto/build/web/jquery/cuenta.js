@@ -16,20 +16,16 @@ function  crearCuenta() {
         usuario_id: UsuarioId},
             function (response) {
                 //alert(response.message);
-                if (response.message === "insert")
-                {
+                if (response.message === "insert") {
                     obtenerCuenta();
                     MostrarMsgAddCuenta();
-                } else if (response.message === "equal")
-                {
+                } else if (response.message === "equal") {
                     obtenerCuenta();
                     MostrarMsgAlertaCuenta();
-                } else if (response.message === "error")
-                {
+                } else if (response.message === "error") {
                     obtenerCuenta();
                     MostrarMsgAlertaCuenta();
-                } else
-                {
+                } else {
                     obtenerCuenta();
                     MostrarMsgUpdateCuenta();
                 }
@@ -143,13 +139,11 @@ function eliminarCuenta(id, elemento) {
     $.get("api/controladorcuenta/eliminarcuenta", {
         cuenta_id: id}, function (response) {
         //alert(response.message);
-        if (response.message === "delete")
-        {
+        if (response.message === "delete") {
             MostrarMsgDeleteCuenta();
-            $(elemento).parent().parent().remove(); 
+            $(elemento).parent().parent().remove();
             obtenerCuenta();
-        } else if (response.message === "error")
-        {
+        } else if (response.message === "error") {
             MostrarMsgAlertaCuenta();
         }
         //$(elemento).parent().parent().remove();
@@ -170,39 +164,65 @@ function seleccionarCuenta(id, elemento) {
 /**********************************************/
 // para los mensajes emergentes
 function MostrarMsgAddCuenta() {
-    $('#msg-AddCuenta').show();
-    $('#msg-DeleteCuenta').hide();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+    $('#msg-AddCuenta').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AddCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgDeleteCuenta() {
-    $('#msg-DeleteCuenta').show();
-    $('#msg-AddCuenta').hide();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+    $('#msg-DeleteCuenta').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-DeleteCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgUpdateCuenta() {
-    $('#msg-UpdateCuenta').show();
-    $('#msg-AddCuenta').hide();
-    $('#msg-DeleteCuenta').hide();
-    $('#msg-AlertaCuenta').hide();
+    $('#msg-UpdateCuenta').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-UpdateCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
 function MostrarMsgAlertaCuenta() {
-    $('#msg-AlertaCuenta').show();
-    $('#msg-UpdateCuenta').hide();
-    $('#msg-AddCuenta').hide();
-    $('#msg-DeleteCuenta').hide();
+    $('#msg-AlertCuenta').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-AlertCuenta").fadeOut(1500);
+        }, 3000);
+    });
 }
 
+function MostrarMsgErrorCuenta() {
+    $('#msg-ErrorCuenta').toggle('slow');
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#msg-ErrorCuenta").fadeOut(1500);
+        }, 3000);
+    });
+}
+
+
 function MostrarCuenta() {
-    $('#msg-MostrarFormulario').show();  
+    $('#msg-MostrarFormulario').toggle('slow');
     NuevaCuenta();
 }
 
 function CancelarCuenta() {
-    $('#msg-MostrarFormulario').hide();
+    $('#msg-MostrarFormulario').toggle('slow');
     NuevaCuenta();
 }
+
+/****************************************************************/
+// jQuery
+$(document).ready(function () {
+    $('#alternar-respuesta-ej1').on('click', function () {
+        $('#msg-MostrarFormulario').toggle('slow');
+    });
+});
