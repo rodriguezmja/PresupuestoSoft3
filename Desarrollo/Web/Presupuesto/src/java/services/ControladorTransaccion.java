@@ -8,6 +8,7 @@ package services;
 import Clases.Categoria;
 import Clases.Conn;
 import Clases.Cuenta;
+import Clases.Presupuesto;
 import Clases.Transaccion;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,6 +26,35 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/controladortransaccion")
 public class ControladorTransaccion {
+    
+    @GET
+    @Path("/verificarlimite")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse verificarLimite(@QueryParam("categoria_id") int categoria_id) {
+        Conn con = new Conn();
+        String respuesta = "";
+        try {
+            Presupuesto infopresupuesto = new Presupuesto();
+            infopresupuesto.setCon(con);
+            List<Presupuesto> listaPresupuesto = infopresupuesto.verificarLimite(categoria_id);
+            respuesta = "[";
+            for (int i = 0; i < listaPresupuesto.size(); i++) {
+                respuesta += "{\"nombre\":\"" + listaPresupuesto.get(i).getNombre()                       
+                        + "\",\"monto\":\"" + listaPresupuesto.get(i).getMonto_limite()
+                        + "\",\"gastoTotal\":\"" + listaPresupuesto.get(i).getTotalGasto()
+                        + "\"},";
+            }
+            if (respuesta.length() > 2) {
+                respuesta = respuesta.substring(0, respuesta.length() - 1);
+            }
+            respuesta += "]";
+
+        } catch (Exception ex) {
+            respuesta = "[]";
+        }
+        return new SimpleResponse(true, respuesta);
+    }
 
     @GET
     @Path("/creartransaccion")
@@ -40,9 +70,10 @@ public class ControladorTransaccion {
             Cuenta cuentadestino = new Cuenta(con);
             cuenta = cuenta.obtenerCuenta(idcuenta);
             cuentadestino = cuentadestino.obtenerCuenta(idcuentadestino);
+            
             if (transaccion == null) {
                 transaccion = new Transaccion(0, fecha, tipotransaccion, monto, detalle, user_id, idcuenta, idcuentadestino, idcategoria);
-                transaccion.setCon(con);
+                transaccion.setCon(con);    
                 transaccion.insertar();
                 if (tipotransaccion.equals("Ingreso")) {
                     double montonuevo = cuenta.getMonto() + monto;

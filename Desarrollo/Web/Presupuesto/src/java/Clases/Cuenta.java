@@ -80,8 +80,8 @@ public class Cuenta {
         return lis;
     }
 
-    public Cuenta buscarxNombre(String nombreCuenta) throws SQLException {
-        String consulta = "select * from Cuenta where nombre='"+ nombreCuenta +"'"; 
+    public Cuenta buscarxNombre(int usuario_id,String nombreCuenta) throws SQLException {
+        String consulta = "select * from Cuenta where user_id="+usuario_id+" and nombre='"+ nombreCuenta +"'"; 
         ResultSet rs = con.consultar(consulta);
         List<Cuenta> lis = cargar(rs);
         if (lis.size() > 0) {

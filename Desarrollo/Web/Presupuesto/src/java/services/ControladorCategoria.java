@@ -7,6 +7,7 @@ package services;
 
 import Clases.Categoria;
 import Clases.Conn;
+import Clases.Presupuesto;
 import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.Produces;
@@ -33,7 +34,7 @@ public class ControladorCategoria {
         SimpleResponse respuesta;
         try {
             Categoria categoria = new Categoria(con);
-            categoria = categoria.buscarxNombre(nombrecategoria);
+            categoria = categoria.buscarxNombre(usuario_id, nombrecategoria);
             if (categoria != null) {
                 respuesta = new SimpleResponse(true, "equal");
             } else {
@@ -102,6 +103,68 @@ public class ControladorCategoria {
             respuesta = new SimpleResponse(true, "error");
         }
         return respuesta;
+    }
+
+    @GET
+    @Path("/crearpresupuesto")
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse crearPresupuesto(@QueryParam("presupuestoid") int presupuestoid,@QueryParam("categoria") int categoria, @QueryParam("nombrepresupuesto") String nombrepresupuesto, @QueryParam("monto") Double monto, @QueryParam("usuario_id") int usuario_id, @QueryParam("fecha") String fecha) {
+        Conn con = new Conn();
+        SimpleResponse respuesta;
+        try {
+            Presupuesto presupuesto = new Presupuesto(con);
+            presupuesto = presupuesto.buscarxNombre(usuario_id, nombrepresupuesto);
+            if (presupuesto != null) {
+                respuesta = new SimpleResponse(true, "equal");
+            } else {
+                presupuesto = new Presupuesto(nombrepresupuesto, monto, categoria,fecha, usuario_id);
+                presupuesto.setCon(con);
+                if (presupuestoid == 0) {
+                    presupuesto.insertar();
+                    respuesta = new SimpleResponse(true, "insert");
+                } else {
+                    presupuesto.modificar(presupuestoid);
+                    respuesta = new SimpleResponse(true, "update");
+                }
+            }
+
+        } catch (SQLException ex) {
+            respuesta = new SimpleResponse(true, "error");
+        }
+        return respuesta;
+    }
+    
+     @GET
+    @Path("/obtenerpresupuesto")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SimpleResponse obtenerPresupuesto(@QueryParam("usuario_id") int usuario_id) {
+        Conn con = new Conn();
+        String respuesta = "";
+        try {
+            Presupuesto infoPresupuesto = new Presupuesto();
+            infoPresupuesto.setCon(con);
+            List<Presupuesto> listaPresupuesto = infoPresupuesto.buscarXid(usuario_id);
+            respuesta = "[";
+            for (int i = 0; i < listaPresupuesto.size(); i++) {
+                respuesta += "{\"id\":\"" + listaPresupuesto.get(i).getPresupuesto_id()
+                        + "\",\"nombre\":\"" + listaPresupuesto.get(i).getNombre()
+                        + "\",\"monto\":\"" + listaPresupuesto.get(i).getMonto_limite()
+                        + "\",\"categoria\":\"" + listaPresupuesto.get(i).getCategoria_id()
+                        + "\",\"fecha\":\"" + listaPresupuesto.get(i).getFecha()
+                        + "\",\"user_id\":\"" + listaPresupuesto.get(i).getUser_id()
+                        + "\"},";
+            }
+            if (respuesta.length() > 2) {
+                respuesta = respuesta.substring(0, respuesta.length() - 1);
+            }
+            respuesta += "]";
+
+        } catch (Exception ex) {
+            respuesta = "[]";
+        }
+        return new SimpleResponse(true, respuesta);
     }
 
 }

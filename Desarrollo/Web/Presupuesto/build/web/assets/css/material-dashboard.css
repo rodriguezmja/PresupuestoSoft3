@@ -3571,6 +3571,19 @@ footer .btn {
 .card .card-content .category {
   margin-bottom: 0;
 }
+
+
+/* para mostrar el form de cuenta */
+.card .card-content .msg-MostrarForm{
+    padding: 0px 0px 10px 20px;
+}
+
+.card .card-content .category .msg-MostrarForm{
+    margin-bottom: 0;
+}
+/*******************************************************/
+
+
 .card .card-header {
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   margin: -20px 15px 0;

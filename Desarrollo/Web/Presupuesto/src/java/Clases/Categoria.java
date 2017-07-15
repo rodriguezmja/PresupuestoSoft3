@@ -80,8 +80,8 @@ public class Categoria {
         return lis;
     }
 
-    public Categoria buscarxNombre(String nombreCategoria) throws SQLException {
-        String consulta = "select * from Categoria where nombre='"+ nombreCategoria +"'"; 
+    public Categoria buscarxNombre(int usuario_id,String nombreCategoria) throws SQLException {
+        String consulta = "select * from Categoria where user_id="+usuario_id+" and nombre='"+ nombreCategoria +"'"; 
         ResultSet rs = con.consultar(consulta);
         List<Categoria> lis = cargar(rs);
         if (lis.size() > 0) {

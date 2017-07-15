@@ -40,7 +40,7 @@ public class ControladorCuenta {
         SimpleResponse respuesta;
         try {
             Cuenta cuenta = new Cuenta(con);
-            cuenta = cuenta.buscarxNombre(nombrecuenta);
+            cuenta = cuenta.buscarxNombre(usuario_id, nombrecuenta);
             if (cuenta != null) {
                 respuesta = new SimpleResponse(true, "equal");
             } else {
